@@ -47,6 +47,8 @@ dependencies {
     implementation domainDependencies.kotlin
     implementation domainDependencies.ktx
 
+    implementation domainDependencies.deviceInfo
+
 
     // Glide
     implementation uiDependencies.glide
