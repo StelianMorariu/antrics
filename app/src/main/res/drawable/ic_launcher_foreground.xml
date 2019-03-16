@@ -1,0 +1,79 @@
+<!--
+  ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="108dp"
+        android:height="108dp"
+        android:viewportWidth="145.83333"
+        android:viewportHeight="145.83333">
+    <group android:translateX="53.916668"
+           android:translateY="37.916668">
+
+        <!--phone top-->
+        <path
+                android:pathData="M38,7L0,7L0,6C0,2.7 2.7,0 6,0L32,0C35.3,0 38,2.7 38,6L38,7Z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+        <!--phone bottom-->
+        <path
+                android:pathData="M32,70L6,70C2.7,70 0,67.3 0,64L0,63L38,63L38,64C38,67.3 35.3,70 32,70Z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+        <!--phone left-->
+        <path
+                android:pathData="M0,7h1.4v56h-1.4z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+        <!--phone right-->
+        <path
+                android:pathData="M36.6,7h1.4v56h-1.4z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+
+        <!--phone top notch-->
+        <path
+                android:pathData="M31.9,4L6.1,4C5.5,4 5.1,3.5 5.1,3C5.1,2.4 5.6,2 6.1,2L31.9,2C32.5,2 32.9,2.5 32.9,3C32.9,3.6 32.5,4 31.9,4Z"
+                android:strokeWidth="1"
+                android:fillColor="#383435"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+        <!--top left arrow-->
+        <path
+                android:pathData="M5,12l0,8l3,0l0,-5l5,0l0,-3z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+        <!--ruller-->
+        <path
+                android:pathData="M10.3743,45.4409l1.3003,-2.2375l1.7977,1.021l0.7798,-1.3359l-1.8004,-1.031l1.041,-1.8031l3.139,1.8208l0.7771,-1.346l-3.139,-1.8208l1.0337,-1.7904l1.8004,1.031l0.7771,-1.3459l-1.8004,-1.031l1.041,-1.8031l3.139,1.8208l0.7771,-1.346l-3.139,-1.8208l1.0337,-1.7904l1.7904,1.0337l0.7871,-1.3486l-1.8004,-1.031l1.041,-1.8031l3.129,1.8235l0.7871,-1.3486l-3.139,-1.8208l1.2876,-2.2448l5.3965,3.1157l-12.4407,21.5479z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+        <!--bottom rigt arrow-->
+        <path
+                android:pathData="M30,50l0,5l-5,0l0,3l8,0l0,-8z"
+                android:strokeWidth="1"
+                android:fillColor="#FFFFFF"
+                android:fillType="evenOdd"
+                android:strokeColor="#00000000"/>
+
+    </group>
+</vector>
