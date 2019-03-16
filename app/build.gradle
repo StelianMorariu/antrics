@@ -1,0 +1,77 @@
+/*
+ * Copyright ©  2019 Stelian Morariu. All rights reserved.
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: '../android_commons.gradle'
+apply from: '../android_dependencies.gradle'
+
+android {
+
+    defaultConfig {
+        applicationId "com.stelianmorariu.antrics"
+
+        versionCode Integer.parseInt(project.property('project.buildnumber'))
+        versionName project.property('project.buildversion')
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug{
+            buildConfigField "Boolean", "LOGS_ENABLED", project.property('project.logsEnabled')
+            buildConfigField "Boolean", "CRASH_REPORTING_ENABLED", project.property('project.crashReportingEnabled')
+        }
+
+        release {
+            initWith debug
+            debuggable = false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    def uiDependencies = rootProject.ext.uiDependencies
+    def domainDependencies = rootProject.ext.domainDependencies
+    def testDependencies = rootProject.ext.testDependencies
+
+
+    // domain
+    implementation domainDependencies.timber
+
+    implementation domainDependencies.kotlin
+    implementation domainDependencies.ktx
+
+
+    // Glide
+    implementation uiDependencies.glide
+    kapt uiDependencies.glideProcessor
+
+    // UI
+    implementation uiDependencies.appCompat
+    implementation uiDependencies.supportAnnotation
+    implementation uiDependencies.designCompat
+    implementation uiDependencies.constraintLayout
+
+
+    // dagger
+    implementation domainDependencies.dagger
+    kapt domainDependencies.daggerCompiler
+
+    implementation domainDependencies.daggerAndroid
+    implementation domainDependencies.daggerAndroidSupport
+    kapt domainDependencies.daggerAndroidProcessor
+
+
+    // Test dependencies
+    testImplementation testDependencies.junit
+//    testImplementation testDependencies.mockito
+//    testImplementation testDependencies.mockitoKotlin
+    androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation testDependencies.androidXTestRunner
+}

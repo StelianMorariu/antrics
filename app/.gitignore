@@ -1,0 +1,10 @@
+#Android Studio
+.idea
+*.iml
+*.ipr
+*.iws
+classes
+gen-external-apklibs
+
+#Other
+.DS_Store
