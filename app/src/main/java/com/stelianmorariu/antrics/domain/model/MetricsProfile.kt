@@ -15,3 +15,20 @@ data class MetricsProfile(val deviceCode:String,
                           val heightPx:Int,
                           val widthDp:Int,
                           val heightDp:Int)
+
+
+inline fun emptyMetricsProfile(): MetricsProfile {
+    return MetricsProfile(
+        "",
+        "",
+        0.0F,
+        0,
+        "",
+        0.0F,
+        "",
+        0,
+        0,
+        0,
+        0
+    )
+}

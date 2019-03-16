@@ -4,10 +4,7 @@
 
 
 
-import com.stelianmorariu.antrics.presentation.metrics.list.MetricsProfileActivity
-import com.stelianmorariu.antrics.presentation.metrics.list.dagger.MetricsProfileModule
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 
 
 /**
