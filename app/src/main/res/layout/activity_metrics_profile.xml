@@ -13,32 +13,16 @@
 
 
     <ImageView
-            android:layout_width="192dp"
-            android:layout_height="192dp" app:srcCompat="@drawable/pixel_xl_2_thumb"
-            android:id="@+id/device_thumb_iv"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline2"
-            android:layout_gravity="center_horizontal"
-            tools:ignore="MissingConstraints"/>
-
-
-    <ImageView
             android:id="@+id/loading_iv"
-            android:layout_width="192dp"
+            android:layout_width="@dimen/device_image_size"
             android:layout_height="192dp"
             app:srcCompat="@drawable/avd_antrics_loading"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="@dimen/default_padding"
+            android:layout_marginTop="@dimen/default_padding"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="@dimen/default_padding"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-
-    <androidx.constraintlayout.widget.Guideline android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:id="@+id/guideline2"
-                                                app:layout_constraintGuide_percent="0.07"
-                                                android:orientation="horizontal"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
