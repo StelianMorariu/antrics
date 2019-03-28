@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2018 IBM. All rights reserved.
+ * Copyright ©  2019 Stelian Morariu. All rights reserved.
  */
 
 configurations {
@@ -9,7 +9,6 @@ configurations {
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 23
