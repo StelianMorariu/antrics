@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.stelianmorariu.antrics.R
+import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileActivity
 
 class SplashscreenActivity : AppCompatActivity() {
 
@@ -30,6 +31,7 @@ class SplashscreenActivity : AppCompatActivity() {
 
         motionLayout = findViewById(R.id.motion_layout)
         motionLayout.setState(R.id.cs_loading, 0, 0)
+        motionLayout.setTransitionListener(createTransitionListener())
 
         loadingImageView = findViewById(R.id.device_image)
     }
@@ -65,5 +67,26 @@ class SplashscreenActivity : AppCompatActivity() {
 
         loadingImageView.setImageDrawable(avd)
         (avd as Animatable).start()
+    }
+
+    private fun createTransitionListener(): MotionLayout.TransitionListener {
+        return object : MotionLayout.TransitionListener {
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+            }
+
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                this@SplashscreenActivity.startActivity(
+                    MetricsProfileActivity.newIntent(this@SplashscreenActivity)
+                )
+            }
+
+        }
+
     }
 }
