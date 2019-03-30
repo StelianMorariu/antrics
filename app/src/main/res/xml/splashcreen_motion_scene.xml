@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
+  -->
+
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition app:constraintSetStart="@id/cs_loading"
+                app:constraintSetEnd="@id/cs_display"/>
+
+
+    <ConstraintSet android:id="@+id/cs_loading">
+        <Constraint
+                android:id="@id/device_image"
+                android:layout_width="@dimen/device_image_size"
+                android:layout_height="@dimen/device_image_size"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="@dimen/default_padding"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="@dimen/default_padding"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:elevation="@dimen/antrics_elevation"/>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/cs_display">
+        <Constraint
+                android:id="@id/device_image"
+                android:layout_height="@dimen/device_image_size"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideline2"
+                android:elevation="@dimen/antrics_elevation"/>
+
+
+    </ConstraintSet>
+
+</MotionScene>

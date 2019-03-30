@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
+  -->
+
+
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                      xmlns:tools="http://schemas.android.com/tools"
+                                                      android:layout_width="match_parent"
+                                                      android:layout_height="match_parent"
+                                                      tools:context=".presentation.splahscreen.SplashscreenActivity"
+                                                      app:layoutDescription="@xml/splashcreen_motion_scene"
+                                                      android:id="@+id/motion_layout"
+>
+
+
+    <ImageView
+            android:id="@+id/device_image"
+            android:layout_width="@dimen/device_image_size"
+            android:layout_height="@dimen/device_image_size"
+            app:srcCompat="@drawable/ic_device"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/default_padding"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:layout_marginTop="@dimen/default_padding"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/default_padding"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <androidx.constraintlayout.widget.Guideline android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:id="@+id/guideline2"
+                                                app:layout_constraintGuide_percent="0.07"
+                                                android:orientation="horizontal"/>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
