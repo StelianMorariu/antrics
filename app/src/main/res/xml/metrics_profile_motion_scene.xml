@@ -15,6 +15,59 @@
                 app:touchAnchorId="@id/recyclerview"
                 app:touchAnchorSide="top"/>
 
+        <KeyFrameSet>
+
+            <KeyAttribute
+                    app:target="@id/drop_shadow_layout"
+                    android:alpha="0"
+                    app:framePosition="60"
+            />
+
+            <KeyAttribute
+                    app:target="@id/drop_shadow_layout"
+                    android:alpha="50"
+                    app:framePosition="70"
+            />
+
+            <KeyAttribute
+                    app:target="@id/drop_shadow_layout"
+                    android:alpha="255"
+                    app:framePosition="90"
+            />
+
+
+            <KeyPosition
+                    app:target="@id/device_image"
+                    app:framePosition="60"
+                    app:percentHeight="0.8"
+            />
+
+            <KeyAttribute
+                    app:target="@id/device_image"
+                    app:framePosition="60"
+            >
+                <CustomAttribute
+                        app:attributeName="imageAlpha"
+                        app:customIntegerValue="125"/>
+
+            </KeyAttribute>
+
+            <KeyPosition
+                    app:target="@id/device_image"
+                    app:framePosition="70"
+                    app:percentHeight="1"/>
+
+            <KeyAttribute
+                    app:target="@id/device_image"
+                    app:framePosition="70">
+                <CustomAttribute
+                        app:attributeName="imageAlpha"
+                        app:customIntegerValue="0"/>
+
+            </KeyAttribute>
+
+        </KeyFrameSet>
+
     </Transition>
 
     <ConstraintSet android:id="@+id/cs_expanded">
@@ -46,7 +99,6 @@
                 android:id="@+id/recyclerview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha="255"
                 android:elevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,14 +107,15 @@
 
         <Constraint android:id="@id/drop_shadow_layout"
                     android:layout_width="match_parent"
-                    android:background="@android:color/white"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:elevation="0dp"
+                    android:alpha="0"
                     android:clipToPadding="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/title"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/title">
+        </Constraint>
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/cs_collapsed">
@@ -88,28 +141,32 @@
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="@dimen/default_padding"
                 app:layout_constraintTop_toTopOf="parent">
 
+
         </Constraint>
 
         <Constraint
                 android:id="@+id/recyclerview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha="255"
                 android:elevation="@dimen/antrics_elevation"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"/>
+
         <Constraint android:id="@id/drop_shadow_layout"
                     android:layout_width="match_parent"
-                    android:background="@android:color/white"
                     android:layout_height="0dp"
+                    android:alpha="255"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:elevation="@dimen/antrics_elevation"
                     android:clipToPadding="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/title"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/title">
+
+
+        </Constraint>
 
     </ConstraintSet>
 
