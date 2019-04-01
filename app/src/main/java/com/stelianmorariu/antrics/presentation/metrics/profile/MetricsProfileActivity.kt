@@ -11,6 +11,7 @@ import android.util.DisplayMetrics
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stelianmorariu.antrics.R
@@ -40,13 +41,14 @@ class MetricsProfileActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerview)
 
-//        loadingImageView.setOnClickListener { stopLoading = false}
 
+        setupRecyclerView()
+        setupMotionLayout()
     }
 
     override fun onStart() {
         super.onStart()
-        setupRecyclerView()
+
 
         adapter.setItems(getDummyData())
     }
@@ -79,6 +81,42 @@ class MetricsProfileActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+    }
+
+    private fun setupMotionLayout() {
+        val transitionDuration: Long = 400
+
+
+        motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+            }
+
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+//                if (progress >= 0.7F) {
+//                        if (motionLayout.currentState == R.id.cs_expanded) {
+//                            window.statusBarColor =
+//                                ContextCompat.getColor(this@MetricsProfileActivity, R.color.neutralWhite)
+//                        } else {
+//                            window.statusBarColor =
+//                                ContextCompat.getColor(this@MetricsProfileActivity, R.color.lightGray)
+//                        }
+//                }
+
+
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+                if (motionLayout.currentState == R.id.cs_collapsed) {
+                    window.statusBarColor = ContextCompat.getColor(this@MetricsProfileActivity, R.color.neutralWhite)
+                } else {
+                    window.statusBarColor = ContextCompat.getColor(this@MetricsProfileActivity, R.color.lightGray)
+                }
+            }
+
+        })
     }
 
     companion object {
