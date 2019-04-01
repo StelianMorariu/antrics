@@ -8,12 +8,13 @@
     <style name="AntricsTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/neutralWhite</item>
-        <item name="colorPrimaryDark">@color/neutralWhite</item>
+        <item name="colorPrimaryDark">@color/lightGray</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <!--<item name="android:windowTranslucentStatus">true</item>-->
 
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/lightGray</item>
 
     </style>
 
