@@ -18,32 +18,32 @@
         <KeyFrameSet>
 
             <KeyAttribute
-                    app:target="@id/drop_shadow_layout"
+                    app:motionTarget="@id/drop_shadow_layout"
                     android:alpha="0"
                     app:framePosition="60"
             />
 
             <KeyAttribute
-                    app:target="@id/drop_shadow_layout"
+                    app:motionTarget="@id/drop_shadow_layout"
                     android:alpha="50"
                     app:framePosition="70"
             />
 
             <KeyAttribute
-                    app:target="@id/drop_shadow_layout"
+                    app:motionTarget="@id/drop_shadow_layout"
                     android:alpha="255"
                     app:framePosition="90"
             />
 
 
             <KeyPosition
-                    app:target="@id/device_image"
+                    app:motionTarget="@id/device_image"
                     app:framePosition="60"
                     app:percentHeight="0.8"
             />
 
             <KeyAttribute
-                    app:target="@id/device_image"
+                    app:motionTarget="@id/device_image"
                     app:framePosition="60"
             >
                 <CustomAttribute
@@ -53,12 +53,12 @@
             </KeyAttribute>
 
             <KeyPosition
-                    app:target="@id/device_image"
+                    app:motionTarget="@id/device_image"
                     app:framePosition="70"
                     app:percentHeight="1"/>
 
             <KeyAttribute
-                    app:target="@id/device_image"
+                    app:motionTarget="@id/device_image"
                     app:framePosition="70">
                 <CustomAttribute
                         app:attributeName="imageAlpha"
