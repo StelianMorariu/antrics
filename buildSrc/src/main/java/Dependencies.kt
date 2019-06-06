@@ -49,6 +49,11 @@ object Libraries {
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
 
+    const val lifecycleRuntime = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
+    const val lifecycleKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
     const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
@@ -83,8 +88,6 @@ object SupportLibraries {
 object GoogleLibraries {
     const val playCore = "com.google.android.play:core:${Versions.playCore}"
 
-    const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
-    const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
 
 }
 

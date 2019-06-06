@@ -50,6 +50,9 @@ dependencies {
     implementation Libraries.kotlinStdLib
     implementation Libraries.ktx
 
+    implementation Libraries.lifecycleRuntime
+    implementation Libraries.lifecycleExtensions
+    kapt Libraries.lifecycleCompiler
 
     implementation Libraries.deviceNames
 
