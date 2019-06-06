@@ -38,40 +38,41 @@ android {
     }
 
     configurations.all {
-        resolutionStrategy.force 'com.android.support.constraint:constraint-layout:2.0.0-alpha4'
+        resolutionStrategy.force SupportLibraries.constraintLayout
     }
 }
 
 dependencies {
 
     // domain
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation  Libraries.timber
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.21'
-    implementation 'androidx.core:core-ktx:1.1.0-alpha05'
+    implementation Libraries.kotlinStdLib
+    implementation Libraries.ktx
 
-    implementation 'com.jaredrummler:android-device-names:1.1.8'
+
+    implementation Libraries.deviceNames
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation Libraries.glide
+    kapt Libraries.glideCompiler
 
     // UI
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.annotation:annotation:1.0.2'
-    implementation 'com.google.android.material:material:1.1.0-alpha05'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
+    implementation SupportLibraries.appCompatX
+    implementation SupportLibraries.annotationX
+    implementation SupportLibraries.material
+    implementation SupportLibraries.constraintLayout
 
     // dagger
-    implementation 'com.google.dagger:dagger-android:2.16'
-    kapt 'com.google.dagger:dagger-compiler:2.16'
+    implementation Libraries.dagger
+    kapt Libraries.daggerCompiler
 
-    implementation 'com.google.dagger:dagger-android:2.16'
-    implementation 'com.google.dagger:dagger-android-support:2.16'
-    kapt 'com.google.dagger:dagger-android-processor:2.16'
+    implementation Libraries.daggerAndroid
+    implementation Libraries.daggerAndroidSupport
+    kapt Libraries.daggerAndroidProcessor
 
     // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
+    testImplementation TestLibraries.junit
+    androidTestImplementation TestLibraries.espressoCore
+    androidTestImplementation TestLibraries.testRunner
 }
