@@ -7,23 +7,37 @@ package com.stelianmorariu.antrics.presentation.splahscreen
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.os.Handler
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.stelianmorariu.antrics.R
+import com.stelianmorariu.antrics.domain.model.MetricsProfile
+import com.stelianmorariu.antrics.domain.model.emptyMetricsProfile
 import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileActivity
+import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileViewModel
+import javax.inject.Inject
 
 class SplashscreenActivity : AppCompatActivity() {
+
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    lateinit var metricsViewModel: MetricsProfileViewModel
 
     private lateinit var loadingImageView: ImageView
 
     private lateinit var motionLayout: MotionLayout
 
     private var stopLoading = false
+
+    private var metricsProfile = emptyMetricsProfile()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +48,25 @@ class SplashscreenActivity : AppCompatActivity() {
         motionLayout.setTransitionListener(createTransitionListener())
 
         loadingImageView = findViewById(R.id.device_image)
+
+        metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(MetricsProfileViewModel::class.java)
     }
 
     override fun onStart() {
         super.onStart()
-        startLoadingAnimation()
+//        val displayMetrics = DisplayMetrics()
+//        windowManager.defaultDisplay.getMetrics(displayMetrics)
+//        presenter.getMetricsProfile(Build.DEVICE, displayMetrics)
+    }
 
-        Handler().postDelayed({ stopLoading = true }, 1500L)
+    fun showLoading() {
+        startLoadingAnimation()
+    }
+
+    fun showMetricsProfile(profile: MetricsProfile) {
+        metricsProfile = profile
+        stopLoading = true
     }
 
     private fun startLoadingAnimation() {
@@ -71,6 +97,10 @@ class SplashscreenActivity : AppCompatActivity() {
 
     private fun createTransitionListener(): MotionLayout.TransitionListener {
         return object : MotionLayout.TransitionListener {
+            override fun allowsTransition(p0: MotionScene.Transition?): Boolean {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
             }
 
@@ -82,7 +112,7 @@ class SplashscreenActivity : AppCompatActivity() {
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 this@SplashscreenActivity.startActivity(
-                    MetricsProfileActivity.newIntent(this@SplashscreenActivity)
+                    MetricsProfileActivity.newIntent(this@SplashscreenActivity, metricsProfile)
                 )
             }
 

@@ -5,10 +5,11 @@
 package com.stelianmorariu.antrics.presentation
 
 
+import DaggerAppComponent
+import com.stelianmorariu.antrics.domain.dagger.AppInjector
 import com.stelianmorariu.antrics.domain.model.Configuration
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -32,6 +33,8 @@ class AntricsApp : DaggerApplication() {
             .build()
 
         daggerAppComponent.inject(this)
+
+        AppInjector.init(this)
 
         return daggerAppComponent
     }

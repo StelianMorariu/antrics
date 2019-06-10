@@ -8,7 +8,9 @@ import android.util.DisplayMetrics
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 
 
-class MetricsRepository {
+class MetricsRepository constructor() {
+
+
 
     fun getDeviceMetricsProfile(buildCode: String, displayMetrics: DisplayMetrics): MetricsProfile {
 
