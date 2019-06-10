@@ -4,41 +4,52 @@
 
 package com.stelianmorariu.antrics.domain.repositories
 
-import android.util.DisplayMetrics
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
+import com.stelianmorariu.antrics.domain.model.StatefulResource
 
 
 class MetricsRepository constructor() {
 
 
+    fun getDeviceMetricsProfile(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
 
-    fun getDeviceMetricsProfile(buildCode: String, displayMetrics: DisplayMetrics): MetricsProfile {
+        val result = MediatorLiveData<StatefulResource<MetricsProfile>>()
+        result.value = StatefulResource.loading(null)
 
-        // deviceCode = buildCode
-        // deviceName = get device name from somewhere
-        // densityQualifier = metrics.density
-        // densityDpi = metrics.densityDpi
-        // densityBucket = > calculate based on densityQualifier
-        // aspectRatio = ?
-        // format = long
-        // widthPx = metrics.widthPixels
-        // heightPx = metrics.heightPixels
-        // widthDp = Math.round(widthPx/densityQualifier)
-        // heightDp = Math.round(heightPx/densityQualifier)
+//        val dbSource = loadFromDb()
+//        result.addSource(dbSource) { data ->
+//            result.removeSource(dbSource)
+//            if (shouldFetch(data)) {
+//                fetchFromNetwork(dbSource)
+//            } else {
+//                result.addSource(dbSource) { newData ->
+//                    setValue(Resource.success(newData))
+//                }
+//            }
+//        }
 
-        return MetricsProfile(
-            buildCode,
-            buildCode,
-            displayMetrics.density,
-            displayMetrics.densityDpi,
-            getDensityBucket(displayMetrics.density),
-            (displayMetrics.heightPixels / displayMetrics.widthPixels).toFloat(),
+
+        val tempProfile = MetricsProfile(
+            localDeviceInfo.buildCode,
+            localDeviceInfo.buildCode,
+            localDeviceInfo.density,
+            localDeviceInfo.densityDpi.toInt(),
+            getDensityBucket(localDeviceInfo.density),
+            (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
             "long",
-            displayMetrics.widthPixels,
-            displayMetrics.heightPixels,
-            Math.round(displayMetrics.widthPixels / displayMetrics.density),
-            Math.round(displayMetrics.heightPixels / displayMetrics.density)
+            localDeviceInfo.widthPixels,
+            localDeviceInfo.heightPixels,
+            Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+            Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
         )
+
+        result.value = StatefulResource.success(tempProfile)
+
+
+        return result
     }
 
 
