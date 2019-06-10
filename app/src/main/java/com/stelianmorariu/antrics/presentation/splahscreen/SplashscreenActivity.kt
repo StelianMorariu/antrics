@@ -7,6 +7,8 @@ package com.stelianmorariu.antrics.presentation.splahscreen
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.util.DisplayMetrics
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -55,9 +57,12 @@ class SplashscreenActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-//        val displayMetrics = DisplayMetrics()
-//        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
 //        presenter.getMetricsProfile(Build.DEVICE, displayMetrics)
+        showLoading()
+
+        Handler().postDelayed({ stopLoading = true }, 1000)
     }
 
     fun showLoading() {

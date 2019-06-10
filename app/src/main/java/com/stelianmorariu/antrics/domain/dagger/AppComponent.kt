@@ -4,6 +4,7 @@
 
 import android.app.Application
 import com.stelianmorariu.antrics.presentation.AntricsApp
+import com.stelianmorariu.antrics.presentation.splahscreen.dagger.MetricsProfileModule
 import com.stelianmorariu.antrics.presentation.splahscreen.dagger.SplashActivityModule
 import dagger.BindsInstance
 import dagger.Component
@@ -19,7 +20,8 @@ import javax.inject.Singleton
     modules = [AppModule::class,
         AndroidInjectionModule::class,
         AndroidSupportInjectionModule::class,
-        SplashActivityModule::class]
+        SplashActivityModule::class,
+        MetricsProfileModule::class]
 )
 interface AppComponent : AndroidInjector<DaggerApplication> {
 
