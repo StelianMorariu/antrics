@@ -44,7 +44,6 @@ class SplashscreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splashscreen)
 
         motionLayout = findViewById(R.id.motion_layout)
-        motionLayout.setState(R.id.cs_loading, 0, 0)
         motionLayout.setTransitionListener(createTransitionListener())
 
         loadingImageView = findViewById(R.id.device_image)
@@ -90,6 +89,7 @@ class SplashscreenActivity : AppCompatActivity() {
                             )
                         )
                         motionLayout.transitionToEnd()
+
                     } else {
                         avd.start()
                     }
@@ -105,7 +105,7 @@ class SplashscreenActivity : AppCompatActivity() {
     private fun createTransitionListener(): MotionLayout.TransitionListener {
         return object : MotionLayout.TransitionListener {
             override fun allowsTransition(p0: MotionScene.Transition?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                return true
             }
 
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
