@@ -71,7 +71,7 @@ class MetricsRepository constructor() {
     /**
      * Get the [MetricsProfile] for the given device build code.
      */
-    fun getDeviceMetricsProfile(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
+    fun getDeviceMetricsProfile(deviceBuildCode: String): LiveData<StatefulResource<MetricsProfile>> {
 
         val result = MediatorLiveData<StatefulResource<MetricsProfile>>()
         result.value = StatefulResource.loading(null)
