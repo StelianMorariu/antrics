@@ -22,7 +22,6 @@ import com.stelianmorariu.antrics.R
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.emptyMetricsProfile
 import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileActivity
-import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileViewModel
 import javax.inject.Inject
 
 class SplashscreenActivity : AppCompatActivity() {
@@ -31,7 +30,7 @@ class SplashscreenActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var metricsViewModel: MetricsProfileViewModel
+    lateinit var splashViewModel: SplashViewModel
 
     private lateinit var loadingImageView: ImageView
 
@@ -51,8 +50,8 @@ class SplashscreenActivity : AppCompatActivity() {
 
         loadingImageView = findViewById(R.id.device_image)
 
-        metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(MetricsProfileViewModel::class.java)
+        splashViewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(SplashViewModel::class.java)
     }
 
     override fun onStart() {
