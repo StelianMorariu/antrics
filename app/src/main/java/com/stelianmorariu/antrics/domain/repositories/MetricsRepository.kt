@@ -5,7 +5,7 @@
 package com.stelianmorariu.antrics.domain.repositories
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
@@ -23,30 +23,36 @@ class MetricsRepository constructor() {
      * Generate a new [MetricsProfile] based on [LocalDeviceInfo] if a profile doesn't already exist.
      */
     fun generateProfileIfRequired(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
-        val result = MediatorLiveData<StatefulResource<MetricsProfile>>()
+        val result = MutableLiveData<StatefulResource<MetricsProfile>>()
         result.value = StatefulResource.loading(null)
 
+        val uiHandler = android.os.Handler()
+
         if (tempMetricsProfile == null) {
-            tempMetricsProfile = MetricsProfile(
-                localDeviceInfo.buildCode,
-                localDeviceInfo.buildCode,
-                localDeviceInfo.density,
-                localDeviceInfo.densityDpi.toInt(),
-                getDensityBucket(localDeviceInfo.density),
-                (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
-                "long",
-                localDeviceInfo.widthPixels,
-                localDeviceInfo.heightPixels,
-                Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
-                Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
-            )
 
-            // TODO: save to local DB
+            uiHandler.postDelayed({
+                tempMetricsProfile = MetricsProfile(
+                    localDeviceInfo.buildCode,
+                    localDeviceInfo.buildCode,
+                    localDeviceInfo.density,
+                    localDeviceInfo.densityDpi.toInt(),
+                    getDensityBucket(localDeviceInfo.density),
+                    (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
+                    "long",
+                    localDeviceInfo.widthPixels,
+                    localDeviceInfo.heightPixels,
+                    Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+                    Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
+                )
 
-            result.value = StatefulResource.success(tempMetricsProfile)
+                // TODO: save to local DB
+
+                result.value = StatefulResource.success(tempMetricsProfile)
+            }, 1000)
 
 
         } else {
+
 
 //        val dbSource = loadFromDb()
 //        result.addSource(dbSource) { data ->
@@ -60,7 +66,7 @@ class MetricsRepository constructor() {
 //            }
 //        }
 
-            result.value = StatefulResource.success(tempMetricsProfile)
+            uiHandler.postDelayed({ result.value = StatefulResource.success(tempMetricsProfile) }, 1000)
 
         }
 
@@ -73,7 +79,7 @@ class MetricsRepository constructor() {
      */
     fun getDeviceMetricsProfile(deviceBuildCode: String): LiveData<StatefulResource<MetricsProfile>> {
 
-        val result = MediatorLiveData<StatefulResource<MetricsProfile>>()
+        val result = MutableLiveData<StatefulResource<MetricsProfile>>()
         result.value = StatefulResource.loading(null)
 
         // FIXME: load profile based on buildcode, from DB if it exists or from Firebase
