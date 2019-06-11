@@ -23,7 +23,6 @@ class SplashViewModel @Inject constructor(metricsRepository: MetricsRepository) 
             metricsRepository.generateProfileIfRequired(localInfo)
         }
 
-
     fun setLocalDeviceInfo(info: LocalDeviceInfo) {
         if (_localDeviceInfo.value == info) {
             return

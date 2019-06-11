@@ -6,21 +6,22 @@ package com.stelianmorariu.antrics.presentation.splahscreen
 
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.util.DisplayMetrics
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.stelianmorariu.antrics.R
-import com.stelianmorariu.antrics.domain.model.MetricsProfile
-import com.stelianmorariu.antrics.domain.model.emptyMetricsProfile
+import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
+import com.stelianmorariu.antrics.domain.model.Status
 import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileActivity
 import javax.inject.Inject
 
@@ -38,8 +39,6 @@ class SplashscreenActivity : AppCompatActivity() {
 
     private var stopLoading = false
 
-    private var metricsProfile = emptyMetricsProfile()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splashscreen)
@@ -52,25 +51,30 @@ class SplashscreenActivity : AppCompatActivity() {
 
         splashViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(SplashViewModel::class.java)
+
+        splashViewModel.metricsProfile.observe(this, Observer { statefulMetricsProfile ->
+            if (statefulMetricsProfile.status == Status.LOADING) {
+                startLoadingAnimation()
+            } else if (statefulMetricsProfile.status == Status.SUCCESS) {
+                stopLoading = true
+            }
+        })
+
+        setLocalDeviceInfo()
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun setLocalDeviceInfo() {
         val displayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(displayMetrics)
-//        presenter.getMetricsProfile(Build.DEVICE, displayMetrics)
-        showLoading()
-
-        Handler().postDelayed({ stopLoading = true }, 1000)
-    }
-
-    fun showLoading() {
-        startLoadingAnimation()
-    }
-
-    fun showMetricsProfile(profile: MetricsProfile) {
-        metricsProfile = profile
-        stopLoading = true
+        splashViewModel.setLocalDeviceInfo(
+            LocalDeviceInfo(
+                Build.DEVICE,
+                displayMetrics.density,
+                displayMetrics.densityDpi.toFloat(),
+                displayMetrics.heightPixels,
+                displayMetrics.widthPixels
+            )
+        )
     }
 
     private fun startLoadingAnimation() {
@@ -94,7 +98,6 @@ class SplashscreenActivity : AppCompatActivity() {
 
         })
 
-
         loadingImageView.setImageDrawable(avd)
         (avd as Animatable).start()
     }
@@ -116,7 +119,7 @@ class SplashscreenActivity : AppCompatActivity() {
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 this@SplashscreenActivity.startActivity(
-                    MetricsProfileActivity.newIntent(this@SplashscreenActivity, metricsProfile)
+                    MetricsProfileActivity.newIntent(this@SplashscreenActivity)
                 )
             }
 
