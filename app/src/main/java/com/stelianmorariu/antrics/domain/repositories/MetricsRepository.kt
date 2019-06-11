@@ -14,10 +14,39 @@ import com.stelianmorariu.antrics.domain.model.StatefulResource
 class MetricsRepository constructor() {
 
 
-    fun getDeviceMetricsProfile(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
+    /**
+     * Save profile here temprorarily until local persistence is implemented
+     */
+    private var tempMetricsProfile: MetricsProfile? = null
 
+    /**
+     * Generate a new [MetricsProfile] based on [LocalDeviceInfo] if a profile doesn't already exist.
+     */
+    fun generateProfileIfRequired(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
         val result = MediatorLiveData<StatefulResource<MetricsProfile>>()
         result.value = StatefulResource.loading(null)
+
+        if (tempMetricsProfile == null) {
+            tempMetricsProfile = MetricsProfile(
+                localDeviceInfo.buildCode,
+                localDeviceInfo.buildCode,
+                localDeviceInfo.density,
+                localDeviceInfo.densityDpi.toInt(),
+                getDensityBucket(localDeviceInfo.density),
+                (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
+                "long",
+                localDeviceInfo.widthPixels,
+                localDeviceInfo.heightPixels,
+                Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+                Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
+            )
+
+            // TODO: save to local DB
+
+            result.value = StatefulResource.success(tempMetricsProfile)
+
+
+        } else {
 
 //        val dbSource = loadFromDb()
 //        result.addSource(dbSource) { data ->
@@ -31,22 +60,25 @@ class MetricsRepository constructor() {
 //            }
 //        }
 
+            result.value = StatefulResource.success(tempMetricsProfile)
 
-        val tempProfile = MetricsProfile(
-            localDeviceInfo.buildCode,
-            localDeviceInfo.buildCode,
-            localDeviceInfo.density,
-            localDeviceInfo.densityDpi.toInt(),
-            getDensityBucket(localDeviceInfo.density),
-            (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
-            "long",
-            localDeviceInfo.widthPixels,
-            localDeviceInfo.heightPixels,
-            Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
-            Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
-        )
+        }
 
-        result.value = StatefulResource.success(tempProfile)
+        return result
+    }
+
+
+    /**
+     * Get the [MetricsProfile] for the given device build code.
+     */
+    fun getDeviceMetricsProfile(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
+
+        val result = MediatorLiveData<StatefulResource<MetricsProfile>>()
+        result.value = StatefulResource.loading(null)
+
+        // FIXME: load profile based on buildcode, from DB if it exists or from Firebase
+
+        result.value = StatefulResource.success(tempMetricsProfile)
 
 
         return result
