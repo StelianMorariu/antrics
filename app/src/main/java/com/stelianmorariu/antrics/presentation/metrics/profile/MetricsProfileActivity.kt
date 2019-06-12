@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
@@ -33,6 +34,8 @@ class MetricsProfileActivity : AppCompatActivity() {
 
     private lateinit var loadingImageView: ImageView
 
+    private lateinit var titleTv: TextView
+
     private lateinit var motionLayout: MotionLayout
 
     private lateinit var recyclerView: RecyclerView
@@ -48,9 +51,8 @@ class MetricsProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_metrics_profile)
 
         motionLayout = findViewById(R.id.motion_layout)
-
         loadingImageView = findViewById(R.id.device_image)
-
+        titleTv = findViewById(R.id.title)
         recyclerView = findViewById(R.id.recyclerview)
 
         setupRecyclerView()
@@ -63,6 +65,7 @@ class MetricsProfileActivity : AppCompatActivity() {
             if (statefulMetricsProfile.status == Status.LOADING) {
                 // the profile should be available already so no loading state should be required
             } else if (statefulMetricsProfile.status == Status.SUCCESS) {
+                titleTv.text = statefulMetricsProfile.data!!.deviceName
                 adapter.setItems(statefulMetricsProfile.data!!.toProfileItemList())
             }
         })
