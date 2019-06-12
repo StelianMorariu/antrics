@@ -85,7 +85,7 @@ class MetricsProfileActivity : AppCompatActivity() {
 
         motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
             override fun allowsTransition(p0: MotionScene.Transition?): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                return true
             }
 
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
