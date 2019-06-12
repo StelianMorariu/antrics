@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
+import timber.log.Timber
 
 
 class FirebaseDataSource {
@@ -26,6 +27,7 @@ class FirebaseDataSource {
 
         deviceMetaDataQuery.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
             if (firebaseFirestoreException != null) {
+                Timber.e(firebaseFirestoreException)
                 result.postValue(StatefulResource.error(firebaseFirestoreException.toString(), null))
             }
 
@@ -33,8 +35,8 @@ class FirebaseDataSource {
                 if (snapshot.isEmpty) {
                     result.postValue(StatefulResource.error("No result found for $deviceModel", null))
                 } else {
-                    val metadata = snapshot.documents.first().toObject(FirebaseDeviceMetadata::class.java)
-                    result.postValue(StatefulResource.success(metadata))
+                    val metadata = snapshot.toObjects(FirebaseDeviceMetadata::class.java)
+                    result.postValue(StatefulResource.success(metadata.first()))
                 }
             }
         }
