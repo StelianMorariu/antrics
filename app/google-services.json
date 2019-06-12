@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "332389517700",
+    "firebase_url": "https://antrics-badd7.firebaseio.com",
+    "project_id": "antrics-badd7",
+    "storage_bucket": "antrics-badd7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332389517700:android:848be27bb5bc7c55",
+        "android_client_info": {
+          "package_name": "com.stelianmorariu.antrics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "332389517700-e72o0ljfi06t1n99b4b9v2tjk5u4eeth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFwWNEK3GQjqdbvRKb-A7hVnOXOYE_pH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "332389517700-e72o0ljfi06t1n99b4b9v2tjk5u4eeth.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
