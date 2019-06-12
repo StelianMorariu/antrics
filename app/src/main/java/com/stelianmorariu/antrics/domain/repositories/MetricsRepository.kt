@@ -6,12 +6,14 @@ package com.stelianmorariu.antrics.domain.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.stelianmorariu.antrics.data.firebase.FirebaseDataSource
 import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
+import javax.inject.Inject
 
 
-class MetricsRepository constructor() {
+class MetricsRepository @Inject constructor(firebaseDataSource: FirebaseDataSource) {
 
 
     /**

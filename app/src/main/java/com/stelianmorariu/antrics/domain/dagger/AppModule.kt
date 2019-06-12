@@ -38,7 +38,8 @@ class AppModule {
      */
     @Provides
     @Singleton
-    fun provideMetricsRepository(): MetricsRepository = MetricsRepository()
+    fun provideMetricsRepository(firebaseDataSource: FirebaseDataSource): MetricsRepository =
+        MetricsRepository(firebaseDataSource)
 
 
 }
