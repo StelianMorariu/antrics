@@ -1,0 +1,15 @@
+<!--
+  ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
+  -->
+
+<vector android:height="24dp" android:viewportHeight="48"
+        android:viewportWidth="48" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#241F20"
+          android:pathData="M0,44.34l10.662,-10.662l-6.142,-6.164l16.019,0l0,16.074l-6.223,-6.243l-10.654,10.655z"/>
+    <path android:fillColor="#241F20"
+          android:pathData="M47.999,44.34l-10.661,-10.662l6.141,-6.164l-16.018,0l0,16.074l6.222,-6.243l10.655,10.655z"/>
+    <path android:fillColor="#241F20"
+          android:pathData="M47.999,3.66l-10.661,10.662l6.141,6.164l-16.018,0l0,-16.075l6.222,6.243l10.655,-10.654z"/>
+    <path android:fillColor="#241F20"
+          android:pathData="M0.001,3.66l10.661,10.662l-6.141,6.164l16.018,0l0,-16.075l-6.222,6.243l-10.654,-10.654z"/>
+</vector>
