@@ -12,6 +12,9 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.stelianmorariu.antrics.R
 
@@ -81,4 +84,20 @@ fun Activity.getAccentColour(): Int {
     a.recycle()
 
     return color
+}
+
+fun ImageView.loadDeviceImage(imagePath: String) {
+    Glide.with(this)
+        .load(imagePath)
+        .centerInside()
+        .transition(DrawableTransitionOptions.withCrossFade(500))
+        .into(this)
+}
+
+fun ImageView.loadDeviceImage(resId: Int) {
+    Glide.with(this)
+        .load(resId)
+        .centerInside()
+        .transition(DrawableTransitionOptions.withCrossFade(500))
+        .into(this)
 }
