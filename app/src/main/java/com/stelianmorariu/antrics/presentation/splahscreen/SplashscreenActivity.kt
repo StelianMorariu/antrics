@@ -67,7 +67,7 @@ class SplashscreenActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         splashViewModel.setLocalDeviceInfo(
             LocalDeviceInfo(
-                Build.DEVICE,
+                Build.MODEL,
                 displayMetrics.density,
                 displayMetrics.densityDpi.toFloat(),
                 displayMetrics.heightPixels,

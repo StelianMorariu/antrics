@@ -15,18 +15,18 @@ import javax.inject.Inject
 
 class MetricsProfileViewModel @Inject constructor(metricsRepository: MetricsRepository) : ViewModel() {
 
-    private val _deviceBuildCode: MutableLiveData<String> = MutableLiveData()
+    private val _deviceBuildModel: MutableLiveData<String> = MutableLiveData()
 
     val metricsProfile: LiveData<StatefulResource<MetricsProfile>> = Transformations
-        .switchMap(_deviceBuildCode) { code ->
+        .switchMap(_deviceBuildModel) { code ->
             metricsRepository.getDeviceMetricsProfile(code)
         }
 
     fun setDeviceBuildCode(buildCode: String) {
-        if (_deviceBuildCode.value == buildCode) {
+        if (_deviceBuildModel.value == buildCode) {
             return
         } else {
-            _deviceBuildCode.value = buildCode
+            _deviceBuildModel.value = buildCode
         }
     }
 }

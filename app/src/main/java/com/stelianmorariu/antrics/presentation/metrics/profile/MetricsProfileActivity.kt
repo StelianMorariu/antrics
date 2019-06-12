@@ -73,7 +73,7 @@ class MetricsProfileActivity : AppCompatActivity() {
             }
         })
 
-        metricsViewModel.setDeviceBuildCode(Build.DEVICE)
+        metricsViewModel.setDeviceBuildCode(Build.MODEL)
     }
 
 
