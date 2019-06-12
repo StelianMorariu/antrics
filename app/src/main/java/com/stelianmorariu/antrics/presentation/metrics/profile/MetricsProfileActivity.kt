@@ -8,17 +8,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stelianmorariu.antrics.R
-import com.stelianmorariu.antrics.domain.model.MetricsProfile
+import com.stelianmorariu.antrics.domain.model.Status
 import javax.inject.Inject
 
 
@@ -37,9 +38,6 @@ class MetricsProfileActivity : AppCompatActivity() {
 
     private lateinit var adapter: MetricsItemAdapter
 
-    private val metricsProfile: MetricsProfile
-        get() = intent.getParcelableExtra(EXTRA_PROFILE)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,50 +52,23 @@ class MetricsProfileActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerview)
 
-
         setupRecyclerView()
         setupMotionLayout()
+
+        metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
+            .get(MetricsProfileViewModel::class.java)
+
+        metricsViewModel.metricsProfile.observe(this, Observer { statefulMetricsProfile ->
+            if (statefulMetricsProfile.status == Status.LOADING) {
+                // the profile should be available already so no loading state should be required
+            } else if (statefulMetricsProfile.status == Status.SUCCESS) {
+                adapter.setItems(statefulMetricsProfile.data!!.toProfileItemList())
+            }
+        })
+
+        metricsViewModel.setDeviceBuildCode(Build.DEVICE)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-
-        adapter.setItems(getDummyData())
-
-        getDisplayMetris()
-    }
-
-    fun getDisplayMetris(): DisplayMetrics {
-        val displayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(displayMetrics)
-
-
-        val buildCode = Build.DEVICE
-//        return MetricsProfile(
-//            buildCode,
-//           buildCode,
-////            displayMetrics.
-//        )
-
-
-        return displayMetrics
-    }
-
-
-    private fun getDummyData(): List<MetricsProfileItem> {
-        return listOf(
-            MetricsProfileItem(0, "hjkm", "765"),
-            MetricsProfileItem(0, "hjkm", "rtfed"),
-            MetricsProfileItem(0, "hjkm", " bvfd"),
-            MetricsProfileItem(0, "hjkm", "rty"),
-            MetricsProfileItem(0, "hjkm", "uyt"),
-            MetricsProfileItem(0, "hjkm", "nbvc"),
-            MetricsProfileItem(0, "hjkm", "23456"),
-            MetricsProfileItem(0, "hjkm", "o"),
-            MetricsProfileItem(0, "hjkm", "rtfed")
-        )
-    }
 
     private fun setupRecyclerView() {
         adapter = MetricsItemAdapter(this)
@@ -149,17 +120,8 @@ class MetricsProfileActivity : AppCompatActivity() {
     }
 
     companion object {
-
-        private const val EXTRA_PROFILE = "com.stelianmorariu.antrics.presentation.metrics.profile.EXTRA_PROFILE"
-
-        fun newIntent(context: Context, metricsProfile: MetricsProfile): Intent {
-            val intent = Intent(context, MetricsProfileActivity::class.java)
-            intent.putExtra(EXTRA_PROFILE, metricsProfile)
-            return intent
-
-
-
-
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MetricsProfileActivity::class.java)
         }
     }
 }
