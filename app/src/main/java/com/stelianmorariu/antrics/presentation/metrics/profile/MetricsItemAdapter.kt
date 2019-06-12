@@ -42,6 +42,8 @@ class MetricsItemAdapter(private val context: Context) : RecyclerView.Adapter<Re
     }
 
     private fun bindMetricDataItem(holder: MetricItemViewHolder, item: MetricsProfileItem) {
+        holder.iconImageView?.setImageResource(item.itemType.iconResId)
+        holder.label?.text = item.itemType.displayName
         holder.itemValue?.text = item.itemValue
 
     }
@@ -49,8 +51,8 @@ class MetricsItemAdapter(private val context: Context) : RecyclerView.Adapter<Re
 
     internal class MetricItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var iconImageView: ImageView? = itemView.icon_iv
-        var label: TextView? = itemView.label_tv
-        var itemValue: TextView? = itemView.value_tv
+        var label: TextView? = itemView.metric_tv
+        var itemValue: TextView? = itemView.lbl1_tv
 
     }
 
