@@ -4,6 +4,7 @@
 
 package com.stelianmorariu.antrics.domain.repositories
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stelianmorariu.antrics.data.firebase.FirebaseDataSource
@@ -11,9 +12,12 @@ import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
 import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
+import com.stelianmorariu.antrics.domain.rx.transformers.SingleWorkerTransformer
+import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Singleton
 
-
+@Singleton
 class MetricsRepository @Inject constructor(
     private val firebaseDataSource: FirebaseDataSource,
     private val schedulerProvider: SchedulersProvider
@@ -28,39 +32,57 @@ class MetricsRepository @Inject constructor(
     /**
      * Generate a new [MetricsProfile] based on [LocalDeviceInfo] if a profile doesn't already exist.
      */
+    @SuppressLint("CheckResult")
     fun generateProfileIfRequired(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
         val result = MutableLiveData<StatefulResource<MetricsProfile>>()
         result.value = StatefulResource.loading(null)
-
-
-        val deviceMetaData = firebaseDataSource.getDeviceMetaData(localDeviceInfo.buildCode)
-
-
 
         val uiHandler = android.os.Handler()
 
         if (tempMetricsProfile == null) {
 
-            uiHandler.postDelayed({
-                tempMetricsProfile = MetricsProfile(
-                    localDeviceInfo.buildCode,
-                    localDeviceInfo.buildCode,
-                    localDeviceInfo.density,
-                    localDeviceInfo.densityDpi.toInt(),
-                    getDensityBucket(localDeviceInfo.density),
-                    (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
-                    "long",
-                    localDeviceInfo.widthPixels,
-                    localDeviceInfo.heightPixels,
-                    Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
-                    Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
-                )
+            firebaseDataSource.getDeviceMetaData(localDeviceInfo.buildCode)
+                .compose(SingleWorkerTransformer(schedulerProvider))
+                .subscribe({ metadata ->
 
-                // TODO: save to local DB
+                    tempMetricsProfile = MetricsProfile(
+                        localDeviceInfo.buildCode,
+                        metadata.marketing_name,
+                        localDeviceInfo.density,
+                        localDeviceInfo.densityDpi.toInt(),
+                        getDensityBucket(localDeviceInfo.density),
+                        (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
+                        "long",
+                        localDeviceInfo.widthPixels,
+                        localDeviceInfo.heightPixels,
+                        Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+                        Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
+                    )
 
-                result.value = StatefulResource.success(tempMetricsProfile)
-            }, 1000)
+                    // TODO: save to local DB
 
+                    result.value = StatefulResource.success(tempMetricsProfile)
+                },
+                    { error ->
+                        Timber.e(error)
+                        tempMetricsProfile = MetricsProfile(
+                            localDeviceInfo.buildCode,
+                            localDeviceInfo.buildCode,
+                            localDeviceInfo.density,
+                            localDeviceInfo.densityDpi.toInt(),
+                            getDensityBucket(localDeviceInfo.density),
+                            (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
+                            "long",
+                            localDeviceInfo.widthPixels,
+                            localDeviceInfo.heightPixels,
+                            Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+                            Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
+                        )
+
+                        // TODO: save to local DB ?
+
+                        result.value = StatefulResource.success(tempMetricsProfile)
+                    })
 
         } else {
 
