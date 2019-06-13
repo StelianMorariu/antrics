@@ -10,10 +10,14 @@ import com.stelianmorariu.antrics.data.firebase.FirebaseDataSource
 import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
+import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import javax.inject.Inject
 
 
-class MetricsRepository @Inject constructor(firebaseDataSource: FirebaseDataSource) {
+class MetricsRepository @Inject constructor(
+    private val firebaseDataSource: FirebaseDataSource,
+    private val schedulerProvider: SchedulersProvider
+) {
 
 
     /**
@@ -27,6 +31,11 @@ class MetricsRepository @Inject constructor(firebaseDataSource: FirebaseDataSour
     fun generateProfileIfRequired(localDeviceInfo: LocalDeviceInfo): LiveData<StatefulResource<MetricsProfile>> {
         val result = MutableLiveData<StatefulResource<MetricsProfile>>()
         result.value = StatefulResource.loading(null)
+
+
+        val deviceMetaData = firebaseDataSource.getDeviceMetaData(localDeviceInfo.buildCode)
+
+
 
         val uiHandler = android.os.Handler()
 

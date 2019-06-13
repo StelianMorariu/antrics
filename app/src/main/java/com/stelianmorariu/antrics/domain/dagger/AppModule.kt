@@ -5,6 +5,7 @@ import com.stelianmorariu.antrics.data.firebase.FirebaseDataSource
 import com.stelianmorariu.antrics.domain.dagger.ViewModelModule
 import com.stelianmorariu.antrics.domain.model.Configuration
 import com.stelianmorariu.antrics.domain.repositories.MetricsRepository
+import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -38,8 +39,11 @@ class AppModule {
      */
     @Provides
     @Singleton
-    fun provideMetricsRepository(firebaseDataSource: FirebaseDataSource): MetricsRepository =
-        MetricsRepository(firebaseDataSource)
+    fun provideMetricsRepository(
+        firebaseDataSource: FirebaseDataSource,
+        schedulersProvider: SchedulersProvider
+    ): MetricsRepository =
+        MetricsRepository(firebaseDataSource, schedulersProvider)
 
 
 }
