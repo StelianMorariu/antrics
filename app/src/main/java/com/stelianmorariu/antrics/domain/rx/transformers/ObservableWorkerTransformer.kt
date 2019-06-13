@@ -3,6 +3,7 @@
  */
 
 
+package com.stelianmorariu.antrics.domain.rx.transformers
 
 import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import io.reactivex.Observable

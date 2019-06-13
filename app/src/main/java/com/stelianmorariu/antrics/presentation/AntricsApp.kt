@@ -7,7 +7,7 @@ package com.stelianmorariu.antrics.presentation
 import DaggerAppComponent
 import com.stelianmorariu.antrics.domain.dagger.AppInjector
 import com.stelianmorariu.antrics.domain.model.Configuration
-import com.stelianmorariu.antrics.domain.rx.WorkerSchedulerProvider
+import com.stelianmorariu.antrics.domain.rx.scheduler.WorkerSchedulerProvider
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
