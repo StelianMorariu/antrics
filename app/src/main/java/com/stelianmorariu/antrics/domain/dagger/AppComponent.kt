@@ -3,6 +3,7 @@
  */
 
 import android.app.Application
+import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import com.stelianmorariu.antrics.presentation.AntricsApp
 import com.stelianmorariu.antrics.presentation.splahscreen.dagger.MetricsProfileModule
 import com.stelianmorariu.antrics.presentation.splahscreen.dagger.SplashActivityModule
@@ -39,6 +40,12 @@ interface AppComponent : AndroidInjector<DaggerApplication> {
 
         @BindsInstance
         fun application(application: Application): AppComponent.Builder
+
+        /**
+         * Specify the [SchedulersProvider] to be used across the AppComponent graph.
+         */
+        @BindsInstance
+        fun schedulerProvider(schedulersProvider: SchedulersProvider): AppComponent.Builder
 
         fun build(): AppComponent
     }
