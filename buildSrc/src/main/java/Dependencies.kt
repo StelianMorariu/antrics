@@ -25,11 +25,12 @@ object Versions {
 
     const val timber = "4.7.1"
 
-    const val  firebaseCoreVersion = "16.0.9"
-    const val  firestoreKtxVersion = "19.0.0"
+    const val firebaseCoreVersion = "16.0.9"
+    const val firestoreKtxVersion = "19.0.0"
 
 
     const val rxjava = "2.2.8"
+    const val rxAndroidVersion = "2.0.2"
 
     const val retrofit = "2.5.0"
     const val loggingInterceptor = "3.12.1"
@@ -61,6 +62,7 @@ object Libraries {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
     const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
+    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroidVersion}"
 
 
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCoreVersion}"

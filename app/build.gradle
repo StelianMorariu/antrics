@@ -57,7 +57,9 @@ dependencies {
     implementation Libraries.firebaseCore
     implementation Libraries.firestoreKtx
 
-    implementation Libraries.deviceNames
+
+    implementation Libraries.rxjava
+    implementation Libraries.rxAndroid
 
     // Glide
     implementation Libraries.glide
