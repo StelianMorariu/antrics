@@ -75,6 +75,12 @@ dependencies {
     implementation Libraries.dagger
     kapt Libraries.daggerCompiler
 
+    implementation Libraries.retrofit
+    implementation Libraries.rxjavaAdapter
+    implementation Libraries.retrofitGsonConverter
+    implementation Libraries.loggingInterceptor
+    implementation Libraries.gson
+
     implementation Libraries.daggerAndroid
     implementation Libraries.daggerAndroidSupport
     kapt Libraries.daggerAndroidProcessor

@@ -32,6 +32,7 @@ object Versions {
     const val rxjava = "2.2.8"
     const val rxAndroidVersion = "2.0.2"
 
+    const val gsonVersion = "2.8.0"
     const val retrofit = "2.5.0"
     const val loggingInterceptor = "3.12.1"
     const val glide = "4.9.0"
@@ -70,9 +71,11 @@ object Libraries {
     // This library transitively includes the firebase-firestore library
     const val firestoreKtx = "com.google.firebase:firebase-firestore-ktx:${Versions.firestoreKtxVersion}"
 
+    const val gson = "com.google.code.gson:gson:${Versions.gsonVersion}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val rxjavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
+    const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
 
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
