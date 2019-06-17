@@ -32,11 +32,11 @@ class MetricsAnalytics @Inject constructor(private val context: Context) {
     }
 
     companion object {
-        const val EVENT_METRICS_PROFILE_LOADED = "EVENT_METRICS_PROFILE_LOADED"
+        const val EVENT_METRICS_PROFILE_LOADED = "load_metrics_profile"
 
-        const val PARAM_DEVICE_BUILD_CODE = "DEVICE_BUILD_CODE"
-        const val PARAM_METRICS_MARKETING_NAME = "METRICS_MARKETING_NAME"
-        const val PARAM_METRICS_HAS_DEVICE_IMAGE = "METRICS_HAS_DEVICE_IMAGE"
+        const val PARAM_DEVICE_BUILD_CODE = "device_code"
+        const val PARAM_METRICS_MARKETING_NAME = "marketing_name"
+        const val PARAM_METRICS_HAS_DEVICE_IMAGE = "has_device_image"
     }
 
 }
