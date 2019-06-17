@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideline2"
             android:fitsSystemWindows="true"
-            android:src="@drawable/ic_device"
+            tools:src="@drawable/ic_device"
     />
 
 
