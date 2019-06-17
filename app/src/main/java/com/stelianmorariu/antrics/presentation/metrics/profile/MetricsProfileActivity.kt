@@ -117,7 +117,7 @@ class MetricsProfileActivity : AppCompatActivity() {
                     )
                 } else if (startId == R.id.cs_expanded) {
                     statusBarColour = ColorUtils.setAlphaComponent(
-                        ContextCompat.getColor(this@MetricsProfileActivity, R.color.neutralWhite),
+                        ContextCompat.getColor(this@MetricsProfileActivity, R.color.white),
                         (progress * 255).toInt()
                     )
                 }

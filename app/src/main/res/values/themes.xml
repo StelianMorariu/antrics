@@ -7,7 +7,7 @@
     <!-- Base application theme. -->
     <style name="AntricsTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/neutralWhite</item>
+        <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/lightGray</item>
         <item name="colorAccent">@color/colorAccent</item>
 
