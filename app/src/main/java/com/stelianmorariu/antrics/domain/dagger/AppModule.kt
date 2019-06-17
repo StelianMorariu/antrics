@@ -1,6 +1,8 @@
 /*
  * Copyright ©  2019 Stelian Morariu. All rights reserved.
  */
+import android.app.Application
+import com.stelianmorariu.antrics.data.analytics.MetricsAnalytics
 import com.stelianmorariu.antrics.data.firebase.FirebaseDataSource
 import com.stelianmorariu.antrics.domain.dagger.ViewModelModule
 import com.stelianmorariu.antrics.domain.model.Configuration
@@ -33,6 +35,14 @@ class AppModule {
     @Provides
     @Singleton
     fun provideFirebaseDataSource(): FirebaseDataSource = FirebaseDataSource()
+
+
+    /**
+     * Provide a [MetricsAnalytics] object across the whole app.
+     */
+    @Provides
+    @Singleton
+    fun provideAnalytics(app: Application) = MetricsAnalytics(app.applicationContext)
 
     /**
      * Provide a [MetricsRepository] object across the whole app.
