@@ -14,7 +14,6 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.textfield.TextInputEditText
 import com.stelianmorariu.antrics.R
 
@@ -92,7 +91,7 @@ fun ImageView.loadDeviceImage(imagePath: String) {
         .centerInside()
         .placeholder(R.drawable.generic_device)
         .error(R.drawable.generic_device)
-        .transition(DrawableTransitionOptions.withCrossFade(500))
+//        .transition(DrawableTransitionOptions.withCrossFade(500))
         .into(this)
 }
 
@@ -100,6 +99,6 @@ fun ImageView.loadDeviceImage(resId: Int) {
     Glide.with(this)
         .load(resId)
         .centerInside()
-        .transition(DrawableTransitionOptions.withCrossFade(500))
+//        .transition(DrawableTransitionOptions.withCrossFade(500))
         .into(this)
 }
