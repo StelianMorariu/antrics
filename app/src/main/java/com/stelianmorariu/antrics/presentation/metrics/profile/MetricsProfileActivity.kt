@@ -25,6 +25,7 @@ import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
 import com.stelianmorariu.antrics.domain.model.Status
 import com.stelianmorariu.antrics.presentation.commons.loadDeviceImage
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -105,23 +106,17 @@ class MetricsProfileActivity : AppCompatActivity() {
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
             }
 
-            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
             }
 
             override fun onTransitionChange(p0: MotionLayout?, startId: Int, endId: Int, progress: Float) {
-                var statusBarColour = 0
-                if (startId == R.id.cs_collapsed) {
-                    statusBarColour = ColorUtils.setAlphaComponent(
-                        ContextCompat.getColor(this@MetricsProfileActivity, R.color.lightGray),
-                        (progress * 255).toInt()
-                    )
-                } else if (startId == R.id.cs_expanded) {
-                    statusBarColour = ColorUtils.setAlphaComponent(
-                        ContextCompat.getColor(this@MetricsProfileActivity, R.color.white),
-                        (progress * 255).toInt()
-                    )
-                }
+                val computedAlpha = (progress * 255).toInt()
+                Timber.d("Transition change called with progress: $progress, image view alpha: ${loadingImageView.alpha} and computed alpha: $computedAlpha")
 
+                val statusBarColour = ColorUtils.setAlphaComponent(
+                    ContextCompat.getColor(this@MetricsProfileActivity, R.color.white),
+                    computedAlpha
+                )
                 window.statusBarColor = statusBarColour
             }
 
