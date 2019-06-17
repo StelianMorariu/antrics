@@ -53,7 +53,7 @@ class FirebaseDataSource {
                 Single.create<String> { emitter ->
                     val deviceMetaDataQuery = firestore
                         .collection(DEVICE_IMAGES_COLLECTION_NAME)
-                        .whereEqualTo(deviceMarketingName, deviceMarketingName)
+                        .whereEqualTo(DEVICE_MARKETING_NAME_KEY, deviceMarketingName)
 
                     deviceMetaDataQuery.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                         if (firebaseFirestoreException != null) {
