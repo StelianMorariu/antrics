@@ -8,6 +8,7 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.stelianmorariu.antrics.data.analytics.MetricsAnalytics
 import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
@@ -16,7 +17,10 @@ import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
-class SplashViewModel @Inject constructor(private val metricsRepository: MetricsRepository) : ViewModel() {
+class SplashViewModel @Inject constructor(
+    private val metricsRepository: MetricsRepository,
+    private val metricsAnalytics: MetricsAnalytics
+) : ViewModel() {
 
     private val disposables = CompositeDisposable()
 
@@ -49,6 +53,7 @@ class SplashViewModel @Inject constructor(private val metricsRepository: Metrics
                 _metricsProfile.postValue(StatefulResource.loading(null))
             }
             .subscribe({ results ->
+                metricsAnalytics.logMetricsProfile(results)
                 _metricsProfile.postValue(StatefulResource.success(results))
             },
                 { error ->
