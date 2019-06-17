@@ -55,6 +55,7 @@ dependencies {
     kapt Libraries.lifecycleCompiler
 
     implementation Libraries.firebaseCore
+    implementation Libraries.firebaseAuth
     implementation Libraries.firestoreKtx
 
 

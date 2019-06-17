@@ -26,6 +26,7 @@ object Versions {
     const val timber = "4.7.1"
 
     const val firebaseCoreVersion = "16.0.9"
+    const val firebaseAuthVersion = "17.0.0"
     const val firestoreKtxVersion = "19.0.0"
 
 
@@ -67,6 +68,7 @@ object Libraries {
 
 
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCoreVersion}"
+    const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuthVersion}"
 
     // This library transitively includes the firebase-firestore library
     const val firestoreKtx = "com.google.firebase:firebase-firestore-ktx:${Versions.firestoreKtxVersion}"
