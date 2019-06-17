@@ -17,6 +17,9 @@ class FirebaseDataSource {
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
+    /**
+     * Get device metadata that includes marketing name.
+     */
     fun getDeviceMetaData(deviceModel: String): Single<FirebaseDeviceMetadata> {
         return firebaseAnonymousAuth()
             .flatMap {
@@ -43,6 +46,34 @@ class FirebaseDataSource {
                 }
             }
     }
+
+    fun getDeviceImage(deviceMarketingName: String): Single<String> {
+        return firebaseAnonymousAuth()
+            .flatMap {
+                Single.create<String> { emitter ->
+                    val deviceMetaDataQuery = firestore
+                        .collection(DEVICE_IMAGES_COLLECTION_NAME)
+                        .whereEqualTo(deviceMarketingName, deviceMarketingName)
+
+                    deviceMetaDataQuery.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                        if (firebaseFirestoreException != null) {
+                            Timber.e(firebaseFirestoreException)
+                            emitter.onError(firebaseFirestoreException)
+                        }
+
+                        querySnapshot?.let { snapshot ->
+                            if (snapshot.isEmpty) {
+                                emitter.onError(RuntimeException("Metadata not found for $deviceMarketingName"))
+                            } else {
+                                val metadata = snapshot.toObjects(FirebaseDeviceImage::class.java)
+                                emitter.onSuccess(metadata.first().image_url)
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
 
     fun saveDeviceMetrics(deviceMetricsPprofile: MetricsProfile) {
 
@@ -73,9 +104,10 @@ class FirebaseDataSource {
 
     companion object {
         private const val DEVICES_COLLECTION_NAME = "devices"
-        private const val DEVICE_IMAGES_COLLECTION_NAME = ""
+        private const val DEVICE_IMAGES_COLLECTION_NAME = "device_images"
 
         private const val DEVICE_MODEL_KEY = "device_model"
+        private const val DEVICE_MARKETING_NAME_KEY = "device_marketing_name"
 
     }
 }
