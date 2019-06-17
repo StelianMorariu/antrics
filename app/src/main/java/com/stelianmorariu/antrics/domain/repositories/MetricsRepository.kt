@@ -7,13 +7,14 @@ package com.stelianmorariu.antrics.domain.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.stelianmorariu.antrics.data.firebase.FirebaseDataSource
+import com.stelianmorariu.antrics.data.firebase.FirebaseDeviceMetadata
 import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
+import com.stelianmorariu.antrics.domain.model.withUpdatedImage
 import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import com.stelianmorariu.antrics.domain.rx.transformers.SingleWorkerTransformer
 import io.reactivex.Single
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,53 +34,20 @@ class MetricsRepository @Inject constructor(
      * Generate a new [MetricsProfile] based on [LocalDeviceInfo] if a profile doesn't already exist.
      */
     fun generateProfileIfRequired(localDeviceInfo: LocalDeviceInfo): Single<MetricsProfile> {
-        return Single.create { emitter ->
-            if (tempMetricsProfile == null) {
-                firebaseDataSource.getDeviceMetaData(localDeviceInfo.buildCode)
-                    .compose(SingleWorkerTransformer(schedulerProvider))
-                    .subscribe({ metadata ->
-
-                        tempMetricsProfile = MetricsProfile(
-                            localDeviceInfo.buildCode,
-                            metadata.marketing_name,
-                            localDeviceInfo.density,
-                            localDeviceInfo.densityDpi.toInt(),
-                            getDensityBucket(localDeviceInfo.density),
-                            (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
-                            "long",
-                            localDeviceInfo.widthPixels,
-                            localDeviceInfo.heightPixels,
-                            Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
-                            Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
-                        )
-
-                        // TODO: save to local DB
-
-                        emitter.onSuccess(tempMetricsProfile!!)
-                    },
-                        { error ->
-                            Timber.e(error)
-                            tempMetricsProfile = MetricsProfile(
-                                localDeviceInfo.buildCode,
-                                localDeviceInfo.buildCode,
-                                localDeviceInfo.density,
-                                localDeviceInfo.densityDpi.toInt(),
-                                getDensityBucket(localDeviceInfo.density),
-                                (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
-                                "long",
-                                localDeviceInfo.widthPixels,
-                                localDeviceInfo.heightPixels,
-                                Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
-                                Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
-                            )
-
-                            // TODO: save to local DB ?
-                            emitter.onSuccess(tempMetricsProfile!!)
-//                            emitter.onError(error)
-//                            result.value = StatefulResource.success(tempMetricsProfile)
-                        })
+        return firebaseDataSource.getDeviceMetaData(localDeviceInfo.buildCode)
+            .flatMap { t: FirebaseDeviceMetadata ->
+                tempMetricsProfile = generateMetricsProfile(localDeviceInfo, t)
+                Single.just(tempMetricsProfile)
             }
-        }
+            .flatMap { profile ->
+                firebaseDataSource.getDeviceImage(profile.deviceName)
+                    .flatMap { firebaseImageData ->
+                        tempMetricsProfile = profile.withUpdatedImage(firebaseImageData)
+                        Single.just(tempMetricsProfile)
+                    }
+            }
+            .onErrorResumeNext { Single.just(getMetricsProfileWithoutMetadata(localDeviceInfo)) }
+            .compose(SingleWorkerTransformer(schedulerProvider))
     }
 
     /**
@@ -96,6 +64,42 @@ class MetricsRepository @Inject constructor(
 
 
         return result
+    }
+
+    private fun generateMetricsProfile(
+        localDeviceInfo: LocalDeviceInfo, metadata: FirebaseDeviceMetadata
+    ): MetricsProfile {
+        return MetricsProfile(
+            localDeviceInfo.buildCode,
+            metadata.marketing_name,
+            "",
+            localDeviceInfo.density,
+            localDeviceInfo.densityDpi.toInt(),
+            getDensityBucket(localDeviceInfo.density),
+            (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
+            "long",
+            localDeviceInfo.widthPixels,
+            localDeviceInfo.heightPixels,
+            Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+            Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
+        )
+    }
+
+    private fun getMetricsProfileWithoutMetadata(localDeviceInfo: LocalDeviceInfo): MetricsProfile {
+        return MetricsProfile(
+            localDeviceInfo.buildCode,
+            localDeviceInfo.buildCode,
+            "",
+            localDeviceInfo.density,
+            localDeviceInfo.densityDpi.toInt(),
+            getDensityBucket(localDeviceInfo.density),
+            (localDeviceInfo.heightPixels / localDeviceInfo.widthPixels).toFloat(),
+            "long",
+            localDeviceInfo.widthPixels,
+            localDeviceInfo.heightPixels,
+            Math.round(localDeviceInfo.widthPixels / localDeviceInfo.density),
+            Math.round(localDeviceInfo.heightPixels / localDeviceInfo.density)
+        )
     }
 
 
