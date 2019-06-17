@@ -13,3 +13,11 @@ data class FirebaseDeviceMetadata(
     @JvmOverloads
     constructor() : this("", "", "", "")
 }
+
+data class FirebaseDeviceImage(
+    var device_marketing_name: String,
+    var image_url: String
+) {
+    @JvmOverloads
+    constructor() : this("", "")
+}
