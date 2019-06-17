@@ -21,6 +21,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stelianmorariu.antrics.R
+import com.stelianmorariu.antrics.domain.model.MetricsProfile
+import com.stelianmorariu.antrics.domain.model.StatefulResource
 import com.stelianmorariu.antrics.domain.model.Status
 import com.stelianmorariu.antrics.presentation.commons.loadDeviceImage
 import javax.inject.Inject
@@ -66,14 +68,22 @@ class MetricsProfileActivity : AppCompatActivity() {
             if (statefulMetricsProfile.status == Status.LOADING) {
                 // the profile should be available already so no loading state should be required
             } else if (statefulMetricsProfile.status == Status.SUCCESS) {
-                // TODO: show device image
-                loadingImageView.loadDeviceImage(R.drawable.pixel_xl_2_thumb)
+                loadDeviceImage(statefulMetricsProfile)
                 titleTv.text = statefulMetricsProfile.data!!.deviceName
                 adapter.setItems(statefulMetricsProfile.data.toProfileItemList())
             }
         })
 
         metricsViewModel.setDeviceBuildCode(Build.MODEL)
+    }
+
+    private fun loadDeviceImage(statefulMetricsProfile: StatefulResource<MetricsProfile>) {
+        val imageUrl = statefulMetricsProfile.data?.deviceImageUrl ?: ""
+        if (imageUrl.isNullOrBlank()) {
+            loadingImageView.loadDeviceImage(R.drawable.generic_device)
+        } else {
+            loadingImageView.loadDeviceImage(imageUrl)
+        }
     }
 
 

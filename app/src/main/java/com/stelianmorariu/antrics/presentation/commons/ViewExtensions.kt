@@ -90,6 +90,8 @@ fun ImageView.loadDeviceImage(imagePath: String) {
     Glide.with(this)
         .load(imagePath)
         .centerInside()
+        .placeholder(R.drawable.generic_device)
+        .error(R.drawable.generic_device)
         .transition(DrawableTransitionOptions.withCrossFade(500))
         .into(this)
 }
