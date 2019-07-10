@@ -45,19 +45,23 @@ android {
 dependencies {
 
     // domain
-    implementation  Libraries.timber
+    implementation Libraries.timber
 
     implementation Libraries.kotlinStdLib
     implementation Libraries.ktx
 
     implementation Libraries.lifecycleRuntime
     implementation Libraries.lifecycleExtensions
+    implementation 'androidx.preference:preference:1.1.0-alpha05'
     kapt Libraries.lifecycleCompiler
 
     implementation Libraries.supportFragmentKtx
 
     implementation Libraries.navigationFragmentKtx
     implementation Libraries.navigationRuntimeKtx
+
+
+    implementation Libraries.preference
 
     implementation Libraries.firebaseCore
     implementation Libraries.firebaseAuth

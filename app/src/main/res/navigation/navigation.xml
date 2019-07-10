@@ -12,5 +12,13 @@
     <fragment android:id="@+id/metricsProfileFragment"
               android:name="com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileFragment"
               android:label="MetricsProfileFragment"
-              tools:layout="@layout/fragment_metrics_profile"/>
+              tools:layout="@layout/fragment_metrics_profile">
+        <action
+                android:id="@+id/action_metricsProfileFragment_to_settingsActivity"
+                app:destination="@id/settingsActivity" />
+    </fragment>
+    <activity
+            android:id="@+id/settingsActivity"
+            android:name="com.stelianmorariu.antrics.presentation.settings.SettingsActivity"
+            android:label="SettingsActivity" />
 </navigation>

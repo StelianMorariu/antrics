@@ -18,6 +18,8 @@ object Versions {
     const val supportFragment = "1.1.0-alpha09"
     const val navigation = "2.1.0-alpha04"
 
+    const val preferences = "1.1.0-rc01"
+
     const val dagger = "2.22.1"
 
 
@@ -42,8 +44,6 @@ object Versions {
     const val lifecycle = "2.0.0"
 
     const val playCore = "1.4.1"
-
-    const val deviceName = "1.1.8"
 
     const val junit = "4.12"
     const val espresso = "3.0.2"
@@ -70,6 +70,7 @@ object Libraries {
     const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 
+    const val preference = "androidx.preference:preference:${Versions.preferences}"
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
