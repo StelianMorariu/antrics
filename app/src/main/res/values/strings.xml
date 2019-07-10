@@ -6,4 +6,9 @@
     <string name="app_name">antrics</string>
     <string name="lbl_themes">Theme</string>
     <string name="lbl_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="lbl_appearance">Appearance</string>
+
 </resources>

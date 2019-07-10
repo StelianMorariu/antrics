@@ -92,7 +92,7 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.menu_settings -> {
-                findNavController().navigate(R.id.action_metricsProfileFragment_to_settingsFragment)
+                findNavController().navigate(R.id.action_metricsProfileFragment_to_settingsActivity)
                 true
             }
             else -> false

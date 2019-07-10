@@ -13,10 +13,12 @@
               android:name="com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileFragment"
               android:label="MetricsProfileFragment"
               tools:layout="@layout/fragment_metrics_profile">
-        <action android:id="@+id/action_metricsProfileFragment_to_settingsFragment"
-                app:destination="@id/settingsFragment"/>
+        <action
+                android:id="@+id/action_metricsProfileFragment_to_settingsActivity"
+                app:destination="@id/settingsActivity" />
     </fragment>
-    <fragment android:id="@+id/settingsFragment"
-              android:name="com.stelianmorariu.antrics.presentation.settings.SettingsFragment"
-              android:label="SettingsFragment"/>
+    <activity
+            android:id="@+id/settingsActivity"
+            android:name="com.stelianmorariu.antrics.presentation.settings.SettingsActivity"
+            android:label="SettingsActivity" />
 </navigation>
