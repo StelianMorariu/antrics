@@ -23,7 +23,7 @@ import com.stelianmorariu.antrics.R
 import com.stelianmorariu.antrics.domain.dagger.Injectable
 import com.stelianmorariu.antrics.domain.model.LocalDeviceInfo
 import com.stelianmorariu.antrics.domain.model.Status
-import com.stelianmorariu.antrics.presentation.metrics.profile.MetricsProfileActivity
+import com.stelianmorariu.antrics.presentation.home.HomeActivity
 import javax.inject.Inject
 
 class SplashscreenActivity : AppCompatActivity(), Injectable {
@@ -120,7 +120,7 @@ class SplashscreenActivity : AppCompatActivity(), Injectable {
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 this@SplashscreenActivity.startActivity(
-                    MetricsProfileActivity.newIntent(this@SplashscreenActivity)
+                    HomeActivity.newIntent(this@SplashscreenActivity)
                 )
             }
 

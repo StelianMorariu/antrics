@@ -2,7 +2,7 @@
  * Copyright ©  2019 Stelian Morariu. All rights reserved.
  */
 
-package com.stelianmorariu.antrics.presentation.metrics.profile
+package com.stelianmorariu.antrics.presentation.home
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.stelianmorariu.antrics.R
 
 
-class MetricsProfileActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,14 +20,14 @@ class MetricsProfileActivity : AppCompatActivity() {
         // override the default transitions because we create the circular reveal manually
         overridePendingTransition(R.anim.anim_no_translate, R.anim.anim_no_translate)
 
-        setContentView(R.layout.activity_metrics_profile)
+        setContentView(R.layout.activity_home)
     }
 
 
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, MetricsProfileActivity::class.java)
+            return Intent(context, HomeActivity::class.java)
         }
     }
 }

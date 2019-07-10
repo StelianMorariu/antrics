@@ -35,7 +35,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".presentation.metrics.profile.MetricsProfileActivity"
+        <activity android:name=".presentation.home.HomeActivity"
                   android:screenOrientation="portrait"/>
     </application>
 
