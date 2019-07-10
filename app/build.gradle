@@ -59,6 +59,9 @@ dependencies {
     implementation Libraries.navigationFragmentKtx
     implementation Libraries.navigationRuntimeKtx
 
+
+    implementation Libraries.preference
+
     implementation Libraries.firebaseCore
     implementation Libraries.firebaseAuth
     implementation Libraries.firestoreKtx
