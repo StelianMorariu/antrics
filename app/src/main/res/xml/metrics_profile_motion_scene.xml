@@ -71,6 +71,17 @@
     </Transition>
 
     <ConstraintSet android:id="@+id/cs_expanded">
+
+        <Constraint
+                android:id="@id/btn_menu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <Constraint
                 android:id="@id/device_image"
                 android:layout_width="@dimen/device_image_size"
@@ -120,6 +131,18 @@
 
     <ConstraintSet android:id="@+id/cs_collapsed">
         <Constraint
+                android:id="@id/btn_menu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:elevation="@dimen/antrics_elevation"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
                 android:id="@id/device_image"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +161,8 @@
                 android:scaleY="0.925"
                 android:elevation="@dimen/antrics_elevation"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintEnd_toStartOf="@id/btn_menu"
+                android:layout_marginTop="@dimen/default_padding"
                 app:layout_constraintTop_toTopOf="parent">
 
 
