@@ -16,6 +16,7 @@ import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -47,8 +48,16 @@ class MetricsProfileFragment : Fragment(), Injectable {
 
     private lateinit var adapter: MetricsItemAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_metrics_profile, container, false)
+
+        motionLayout = view.findViewById(R.id.motion_layout)
+        loadingImageView = view.findViewById(R.id.device_image)
+        titleTv = view.findViewById(R.id.title)
+        recyclerView = view.findViewById(R.id.recyclerview)
+
+        setupRecyclerView()
+        setupMotionLayout()
 
         metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(MetricsProfileViewModel::class.java)
@@ -64,19 +73,6 @@ class MetricsProfileFragment : Fragment(), Injectable {
         })
 
         metricsViewModel.setDeviceBuildCode(Build.MODEL)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_metrics_profile, container, false)
-
-        motionLayout = view.findViewById(R.id.motion_layout)
-        loadingImageView = view.findViewById(R.id.device_image)
-        titleTv = view.findViewById(R.id.title)
-        recyclerView = view.findViewById(R.id.recyclerview)
-
-        setupRecyclerView()
-        setupMotionLayout()
-
 
         return view
     }
