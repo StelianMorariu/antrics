@@ -9,8 +9,8 @@
         <item>Default</item>
     </string-array>
     <string-array name="ar_theme_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>light</item>
+        <item>dark</item>
+        <item>default</item>
     </string-array>
 </resources>

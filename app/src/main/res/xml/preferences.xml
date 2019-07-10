@@ -6,7 +6,7 @@
 
     <PreferenceCategory android:title="@string/lbl_appearance">
         <ListPreference
-                android:defaultValue="1"
+                android:defaultValue="light"
                 android:entries="@array/array_themes"
                 android:entryValues="@array/ar_theme_values"
                 android:key="theme"
