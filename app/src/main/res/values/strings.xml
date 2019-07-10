@@ -4,4 +4,5 @@
 
 <resources>
     <string name="app_name">antrics</string>
+    <string name="lbl_themes">Theme</string>
 </resources>

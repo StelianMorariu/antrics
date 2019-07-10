@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
+  -->
+
+<resources>
+    <string-array name="array_themes">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Default</item>
+    </string-array>
+    <string-array name="ar_theme_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+</resources>
