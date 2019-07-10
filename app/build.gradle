@@ -54,6 +54,11 @@ dependencies {
     implementation Libraries.lifecycleExtensions
     kapt Libraries.lifecycleCompiler
 
+    implementation Libraries.supportFragmentKtx
+
+    implementation Libraries.navigationFragmentKtx
+    implementation Libraries.navigationRuntimeKtx
+
     implementation Libraries.firebaseCore
     implementation Libraries.firebaseAuth
     implementation Libraries.firestoreKtx

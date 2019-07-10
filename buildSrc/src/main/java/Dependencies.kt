@@ -15,7 +15,8 @@ object Versions {
     const val annotation = "1.1.0"
     const val material = "1.1.0-alpha07"
     const val constraintLayout = "2.0.0-beta1"
-
+    const val supportFragment = "1.1.0-alpha09"
+    const val navigation = "2.1.0-alpha04"
 
     const val dagger = "2.22.1"
 
@@ -61,6 +62,15 @@ object Libraries {
     const val lifecycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifecycle}"
     const val lifecycleKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 
+
+    const val supportFragmentKtx = "androidx.fragment:fragment-ktx:${Versions.supportFragment}"
+
+    const val navigationRuntimeKtx = "androidx.navigation:navigation-runtime-ktx:${Versions.navigation}"
+    const val navigationFragmentKtx = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigationUiKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+
+
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 
     const val rxjava = "io.reactivex.rxjava2:rxjava:${Versions.rxjava}"
@@ -81,8 +91,6 @@ object Libraries {
 
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
-
-    const val deviceNames = "com.jaredrummler:android-device-names:${Versions.deviceName}"
 
     const val dagger = "com.google.dagger:dagger:${Versions.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"

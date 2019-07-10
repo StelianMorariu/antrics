@@ -4,23 +4,26 @@
 
 package com.stelianmorariu.antrics.presentation.metrics.profile
 
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
+import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stelianmorariu.antrics.R
+import com.stelianmorariu.antrics.domain.dagger.Injectable
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
 import com.stelianmorariu.antrics.domain.model.Status
@@ -28,8 +31,7 @@ import com.stelianmorariu.antrics.presentation.commons.loadDeviceImage
 import timber.log.Timber
 import javax.inject.Inject
 
-
-class MetricsProfileActivity : AppCompatActivity() {
+class MetricsProfileFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -46,18 +48,13 @@ class MetricsProfileActivity : AppCompatActivity() {
 
     private lateinit var adapter: MetricsItemAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_metrics_profile, container, false)
 
-        // override the default transitions because we create the circular reveal manually
-        overridePendingTransition(R.anim.anim_no_translate, R.anim.anim_no_translate)
-
-        setContentView(R.layout.activity_metrics_profile)
-
-        motionLayout = findViewById(R.id.motion_layout)
-        loadingImageView = findViewById(R.id.device_image)
-        titleTv = findViewById(R.id.title)
-        recyclerView = findViewById(R.id.recyclerview)
+        motionLayout = view.findViewById(R.id.motion_layout)
+        loadingImageView = view.findViewById(R.id.device_image)
+        titleTv = view.findViewById(R.id.title)
+        recyclerView = view.findViewById(R.id.recyclerview)
 
         setupRecyclerView()
         setupMotionLayout()
@@ -65,7 +62,7 @@ class MetricsProfileActivity : AppCompatActivity() {
         metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(MetricsProfileViewModel::class.java)
 
-        metricsViewModel.metricsProfile.observe(this, Observer { statefulMetricsProfile ->
+        metricsViewModel.metricsProfile.observe(viewLifecycleOwner, Observer { statefulMetricsProfile ->
             if (statefulMetricsProfile.status == Status.LOADING) {
                 // the profile should be available already so no loading state should be required
             } else if (statefulMetricsProfile.status == Status.SUCCESS) {
@@ -76,6 +73,8 @@ class MetricsProfileActivity : AppCompatActivity() {
         })
 
         metricsViewModel.setDeviceBuildCode(Build.MODEL)
+
+        return view
     }
 
     private fun loadDeviceImage(statefulMetricsProfile: StatefulResource<MetricsProfile>) {
@@ -89,9 +88,9 @@ class MetricsProfileActivity : AppCompatActivity() {
 
 
     private fun setupRecyclerView() {
-        adapter = MetricsItemAdapter(this)
+        adapter = MetricsItemAdapter(context!!)
 
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(context)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
@@ -113,22 +112,19 @@ class MetricsProfileActivity : AppCompatActivity() {
                 val computedAlpha = (progress * 255).toInt()
                 Timber.d("Transition change called with progress: $progress, image view alpha: ${loadingImageView.alpha} and computed alpha: $computedAlpha")
 
-                val statusBarColour = ColorUtils.setAlphaComponent(
-                    ContextCompat.getColor(this@MetricsProfileActivity, R.color.white),
-                    computedAlpha
-                )
-                window.statusBarColor = statusBarColour
+                activity?.let {
+                    val statusBarColour = ColorUtils.setAlphaComponent(
+                        ContextCompat.getColor(it, R.color.white),
+                        computedAlpha
+                    )
+                    it.window.statusBarColor = statusBarColour
+                }
+
             }
 
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
             }
 
         })
-    }
-
-    companion object {
-        fun newIntent(context: Context): Intent {
-            return Intent(context, MetricsProfileActivity::class.java)
-        }
     }
 }
