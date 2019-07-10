@@ -5,7 +5,7 @@
 import android.app.Application
 import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import com.stelianmorariu.antrics.presentation.AntricsApp
-import com.stelianmorariu.antrics.presentation.splahscreen.dagger.MetricsProfileModule
+import com.stelianmorariu.antrics.presentation.metrics.profile.dagger.MetricsProfileModule
 import com.stelianmorariu.antrics.presentation.splahscreen.dagger.SplashActivityModule
 import dagger.BindsInstance
 import dagger.Component
