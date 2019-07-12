@@ -2,15 +2,17 @@
   ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AntricsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
 
-
-        <item name="android:windowLightStatusBar">true</item>
-        <!--        <item name="android:windowBackground">@color/lightGray</item>-->
+        <item name="android:windowLightStatusBar">@bool/usingLightBackroundColour</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">
+            @bool/usingLightBackroundColour
+        </item>
+        <item name="android:navigationBarColor">@color/color_background</item>
 
         <item name="android:preferenceStyle">@style/PreferenceThemeOverlay</item>
 
@@ -25,10 +27,11 @@
         <!-- colorPrimaryDark is still used by Android to draw the status bar colour-->
         <item name="colorPrimaryDark">@color/color_background</item>
 
-        <item name="android:windowTranslucentNavigation">true</item>
-        <!--        <item name="android:navigationBarColor">@color/color_background</item>-->
-        <!--        <item name="android:enforceNavigationBarContrast">true</item>-->
+        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
 
+
+        <!--                        <item name="android:enforceNavigationBarContrast" tools:ignore="NewApi">true</item>-->
+        <!---->
         <!--        <item name="colorSurface">@color/color_surface</item>-->
         <!--        <item name="colorError">@color/color_error</item>-->
 

@@ -15,7 +15,6 @@ import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
-
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -50,7 +49,11 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
 
     private lateinit var adapter: MetricsItemAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = inflater.inflate(R.layout.fragment_metrics_profile, container, false)
 
         motionLayout = view.findViewById(R.id.motion_layout)
@@ -66,19 +69,38 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
         metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(MetricsProfileViewModel::class.java)
 
-        metricsViewModel.metricsProfile.observe(viewLifecycleOwner, Observer { statefulMetricsProfile ->
-            if (statefulMetricsProfile.status == Status.LOADING) {
-                // the profile should be available already so no loading state should be required
-            } else if (statefulMetricsProfile.status == Status.SUCCESS) {
-                loadDeviceImage(statefulMetricsProfile)
-                titleTv.text = statefulMetricsProfile.data!!.deviceName
-                adapter.setItems(statefulMetricsProfile.data.toProfileItemList())
-            }
-        })
+        metricsViewModel.metricsProfile.observe(
+            viewLifecycleOwner,
+            Observer { statefulMetricsProfile ->
+                if (statefulMetricsProfile.status == Status.LOADING) {
+                    // the profile should be available already so no loading state should be required
+                } else if (statefulMetricsProfile.status == Status.SUCCESS) {
+                    loadDeviceImage(statefulMetricsProfile)
+                    titleTv.text = statefulMetricsProfile.data!!.deviceName
+                    adapter.setItems(statefulMetricsProfile.data.toProfileItemList())
+                }
+            })
 
         metricsViewModel.setDeviceBuildCode(Build.MODEL)
 
+
         return view
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.requestApplyInsets()
+
+        view.setOnApplyWindowInsetsListener { view, windowInsets ->
+            var marginParams = view.layoutParams as ViewGroup.MarginLayoutParams
+            marginParams.topMargin = windowInsets.systemWindowInsetTop
+//            marginParams.bottomMargin = windowInsets.systemWindowInsetBottom
+//            motionLayout.setPadding(windowInsets.systemWindowInsetLeft,windowInsets.systemWindowInsetTop,0,windowInsets.systemWindowInsetBottom)
+            windowInsets
+
+        }
     }
 
     /**
@@ -146,7 +168,12 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
             override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
             }
 
-            override fun onTransitionChange(p0: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+            override fun onTransitionChange(
+                p0: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
                 val computedAlpha = (progress * 255).toInt()
                 Timber.d("Transition change called with progress: $progress, image view alpha: ${loadingImageView.alpha} and computed alpha: $computedAlpha")
 
