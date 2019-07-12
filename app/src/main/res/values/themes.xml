@@ -6,17 +6,38 @@
 
     <!-- Base application theme. -->
     <style name="AntricsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/lightGray</item>
-        <item name="colorAccent">@color/colorAccent</item>
 
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
+
 
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/lightGray</item>
+        <!--        <item name="android:windowBackground">@color/lightGray</item>-->
 
         <item name="android:preferenceStyle">@style/PreferenceThemeOverlay</item>
+
+
+        <!-- new stuff-->
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">@color/color_primary_variant</item>
+        <item name="colorSecondary">@color/color_secondary</item>
+
+        <item name="android:colorBackground">@color/color_background</item>
+
+        <!-- colorPrimaryDark is still used by Android to draw the status bar colour-->
+        <item name="colorPrimaryDark">@color/color_background</item>
+
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--        <item name="android:navigationBarColor">@color/color_background</item>-->
+        <!--        <item name="android:enforceNavigationBarContrast">true</item>-->
+
+        <!--        <item name="colorSurface">@color/color_surface</item>-->
+        <!--        <item name="colorError">@color/color_error</item>-->
+
+        <!--        <item name="colorOnPrimary">@color/color_on_primary</item>-->
+        <!--        <item name="colorOnSecondary">@color/color_on_secondary</item>-->
+        <!--        <item name="colorOnBackground">@color/color_on_background</item>-->
+        <!--        <item name="colorOnSurface">@color/color_on_surface</item>-->
+        <!--        <item name="colorOnError">@color/color_on_error</item>-->
+
 
     </style>
 

@@ -5,19 +5,6 @@
 <resources>
 
     <style name="AntricsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/lightGray</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-        <!--<item name="android:windowTranslucentStatus">true</item>-->
-
         <item name="android:forceDarkAllowed">true</item>
-
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:windowBackground">@color/lightGray</item>
-
-        <item name="android:preferenceStyle">@style/PreferenceThemeOverlay</item>
-
     </style>
 </resources>
