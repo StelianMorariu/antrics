@@ -4,13 +4,10 @@
 
 <resources>
 
-    <!--    &lt;!&ndash; Base application theme. &ndash;&gt;-->
-    <!--    <style name="AntricsTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <!--    <style name="Antrics.DayNight" parent="Base.Antrics">-->
 
-    <!--        <item name="android:windowLightStatusBar">false</item>-->
-    <!--        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">false</item>-->
-
-
+    <!-- custom attributes-->
+    <!--        <item name="collapsibleFrameBackground">@color/color_background</item>-->
     <!--    </style>-->
 
 </resources>

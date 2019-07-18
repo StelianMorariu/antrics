@@ -6,4 +6,11 @@
 
     <color name="color_background">#0e0e0e</color>
 
+    <!--    <color name="color_background">#E4313131</color>-->
+    <color name="color_surface">#E4353434</color>
+
+    <!--    <color name="color_collapsible_background">#FA000000</color>-->
+    <!--    <color name="color_collapsible_background">#E4313131</color>-->
+    <color name="color_collapsible_background">#E4353434</color>
+
 </resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
+  -->
+
+<resources>
+
+    <attr name="collapsibleFrameBackground" format="color" />
+
+</resources>

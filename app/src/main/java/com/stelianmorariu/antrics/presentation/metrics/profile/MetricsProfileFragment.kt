@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.motion.widget.MotionScene
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,6 +26,7 @@ import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
 import com.stelianmorariu.antrics.domain.model.Status
 import com.stelianmorariu.antrics.presentation.commons.loadDeviceImage
+import com.stelianmorariu.antrics.presentation.commons.themeColor
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -87,21 +87,6 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
         return view
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        view.requestApplyInsets()
-
-        view.setOnApplyWindowInsetsListener { view, windowInsets ->
-            var marginParams = view.layoutParams as ViewGroup.MarginLayoutParams
-            marginParams.topMargin = windowInsets.systemWindowInsetTop
-//            marginParams.bottomMargin = windowInsets.systemWindowInsetBottom
-//            motionLayout.setPadding(windowInsets.systemWindowInsetLeft,windowInsets.systemWindowInsetTop,0,windowInsets.systemWindowInsetBottom)
-            windowInsets
-
-        }
-    }
 
     /**
      * This method will be invoked when a menu item is clicked if the item
@@ -174,14 +159,24 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
                 endId: Int,
                 progress: Float
             ) {
+
+                var statusBarColour: Int
                 val computedAlpha = (progress * 255).toInt()
+
                 Timber.d("Transition change called with progress: $progress, image view alpha: ${loadingImageView.alpha} and computed alpha: $computedAlpha")
 
                 activity?.let {
-                    val statusBarColour = ColorUtils.setAlphaComponent(
-                        ContextCompat.getColor(it, R.color.white),
-                        computedAlpha
-                    )
+
+                    statusBarColour = if (progress == 1.0F) {
+                        // colour with alpha component is not rendered correctly for dark mode
+                        it.themeColor(R.attr.collapsibleFrameBackground)
+                    } else {
+                        ColorUtils.setAlphaComponent(
+                            it.themeColor(R.attr.collapsibleFrameBackground),
+                            computedAlpha
+                        )
+                    }
+
                     it.window.statusBarColor = statusBarColour
                 }
 

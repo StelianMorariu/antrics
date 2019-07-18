@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import androidx.annotation.AttrRes
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.stelianmorariu.antrics.R
@@ -101,4 +102,10 @@ fun ImageView.loadDeviceImage(resId: Int) {
         .centerInside()
 //        .transition(DrawableTransitionOptions.withCrossFade(500))
         .into(this)
+}
+
+fun Context.themeColor(@AttrRes attrRes: Int): Int {
+    val typedValue = TypedValue()
+    theme.resolveAttribute(attrRes, typedValue, true)
+    return typedValue.data
 }

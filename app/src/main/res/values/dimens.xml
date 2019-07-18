@@ -7,4 +7,10 @@
     <dimen name="device_image_size">210dp</dimen>
     <dimen name="default_padding">8dp</dimen>
     <dimen name="antrics_elevation">4dp</dimen>
+
+
+    <!--Emphasis modifiers for "on" colors-->
+    <dimen name="alpha_emphasis_high">@dimen/mtrl_emphasis_high_type</dimen>
+    <dimen name="alpha_emphasis_medium">@dimen/mtrl_emphasis_medium</dimen>
+    <dimen name="alpha_emphasis_disabled">@dimen/mtrl_emphasis_disabled</dimen>
 </resources>
