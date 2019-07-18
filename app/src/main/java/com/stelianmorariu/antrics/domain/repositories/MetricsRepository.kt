@@ -15,6 +15,7 @@ import com.stelianmorariu.antrics.domain.model.withUpdatedImage
 import com.stelianmorariu.antrics.domain.rx.SchedulersProvider
 import com.stelianmorariu.antrics.domain.rx.transformers.SingleWorkerTransformer
 import io.reactivex.Single
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,7 +47,11 @@ class MetricsRepository @Inject constructor(
                         Single.just(tempMetricsProfile)
                     }
             }
-            .onErrorResumeNext { Single.just(getMetricsProfileWithoutMetadata(localDeviceInfo)) }
+            .onErrorResumeNext {
+                Timber.e((it))
+                tempMetricsProfile = getMetricsProfileWithoutMetadata(localDeviceInfo)
+                Single.just(tempMetricsProfile)
+            }
             .compose(SingleWorkerTransformer(schedulerProvider))
     }
 
