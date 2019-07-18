@@ -5,9 +5,11 @@
 package com.stelianmorariu.antrics.presentation
 
 import DaggerAppComponent
+import androidx.preference.PreferenceManager
 import com.stelianmorariu.antrics.domain.dagger.AppInjector
 import com.stelianmorariu.antrics.domain.model.Configuration
 import com.stelianmorariu.antrics.domain.rx.scheduler.WorkerSchedulerProvider
+import com.stelianmorariu.antrics.presentation.commons.ThemeHelper
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 import timber.log.Timber
@@ -20,6 +22,12 @@ class AntricsApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
+
+
+        val defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val currentTheme: String =
+            defaultSharedPreferences.getString("theme", ThemeHelper.DEFAULT_MODE).toString()
+        ThemeHelper.applyTheme(currentTheme)
 
         initTimber()
     }
