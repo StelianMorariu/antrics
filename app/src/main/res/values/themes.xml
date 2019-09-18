@@ -5,7 +5,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="Antrics.DayNight" parent="Base.Antrics">
+    <style name="Antrics" parent="Base.Antrics">
+
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
 
         <!-- custom attributes-->
         <item name="collapsibleFrameBackground">@color/color_collapsible_background</item>
