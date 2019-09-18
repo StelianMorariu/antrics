@@ -31,7 +31,7 @@
 
     <style name="Base.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="android:statusBarColor">?android:colorBackground</item>
+        <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">@bool/usingLightBackroundColour</item>
 
         <item name="android:navigationBarColor">?android:colorBackground</item>

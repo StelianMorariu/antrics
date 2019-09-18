@@ -13,5 +13,6 @@
 
     <color name="color_collapsible_background">#FFFFFF</color>
 
+    <color name="transparent">#00111111</color>
 
 </resources>
