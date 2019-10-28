@@ -11,8 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.motion.widget.MotionScene
-import androidx.core.graphics.ColorUtils
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,9 +24,8 @@ import com.stelianmorariu.antrics.domain.dagger.Injectable
 import com.stelianmorariu.antrics.domain.model.MetricsProfile
 import com.stelianmorariu.antrics.domain.model.StatefulResource
 import com.stelianmorariu.antrics.domain.model.Status
+import com.stelianmorariu.antrics.presentation.commons.doOnApplyWindowInsets
 import com.stelianmorariu.antrics.presentation.commons.loadDeviceImage
-import com.stelianmorariu.antrics.presentation.commons.themeColor
-import timber.log.Timber
 import javax.inject.Inject
 
 class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClickListener {
@@ -57,6 +55,13 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
         val view = inflater.inflate(R.layout.fragment_metrics_profile, container, false)
 
         motionLayout = view.findViewById(R.id.motion_layout)
+
+        view.doOnApplyWindowInsets { v, windowInsets, initialPadding ->
+            v.updatePadding(
+                top = initialPadding.top + windowInsets.systemWindowInsetTop
+            )
+        }
+
         menuBtn = view.findViewById(R.id.btn_menu)
         loadingImageView = view.findViewById(R.id.device_image)
         titleTv = view.findViewById(R.id.title)
@@ -64,7 +69,6 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
 
         setupMenu()
         setupRecyclerView()
-        setupMotionLayout()
 
         metricsViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(MetricsProfileViewModel::class.java)
@@ -141,50 +145,4 @@ class MetricsProfileFragment : Fragment(), Injectable, PopupMenu.OnMenuItemClick
         recyclerView.adapter = adapter
     }
 
-    private fun setupMotionLayout() {
-        motionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun allowsTransition(p0: MotionScene.Transition?): Boolean {
-                return true
-            }
-
-            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
-            }
-
-            override fun onTransitionStarted(p0: MotionLayout?, startId: Int, endId: Int) {
-            }
-
-            override fun onTransitionChange(
-                p0: MotionLayout?,
-                startId: Int,
-                endId: Int,
-                progress: Float
-            ) {
-
-                var statusBarColour: Int
-                val computedAlpha = (progress * 255).toInt()
-
-                Timber.d("Transition change called with progress: $progress, image view alpha: ${loadingImageView.alpha} and computed alpha: $computedAlpha")
-
-                activity?.let {
-
-                    statusBarColour = if (progress == 1.0F) {
-                        // colour with alpha component is not rendered correctly for dark mode
-                        it.themeColor(R.attr.collapsibleFrameBackground)
-                    } else {
-                        ColorUtils.setAlphaComponent(
-                            it.themeColor(R.attr.collapsibleFrameBackground),
-                            computedAlpha
-                        )
-                    }
-
-                    it.window.statusBarColor = statusBarColour
-                }
-
-            }
-
-            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
-            }
-
-        })
-    }
 }
