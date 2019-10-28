@@ -14,7 +14,7 @@ object Versions {
     const val appcompat = "1.0.2"
     const val annotation = "1.1.0"
     const val material = "1.1.0-alpha07"
-    const val constraintLayout = "2.0.0-beta1"
+    const val constraintLayout = "2.0.0-beta3"
     const val supportFragment = "1.1.0-alpha09"
     const val navigation = "2.1.0-alpha04"
 

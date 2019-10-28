@@ -12,7 +12,6 @@ import android.util.DisplayMetrics
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.motion.widget.MotionScene
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -105,9 +104,6 @@ class SplashscreenActivity : AppCompatActivity(), Injectable {
 
     private fun createTransitionListener(): MotionLayout.TransitionListener {
         return object : MotionLayout.TransitionListener {
-            override fun allowsTransition(p0: MotionScene.Transition?): Boolean {
-                return true
-            }
 
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
             }
