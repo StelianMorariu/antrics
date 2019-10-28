@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright ©  2019 Stelian Morariu. All rights reserved.
   -->
 
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
             app:constraintSetEnd="@id/cs_collapsed"
@@ -13,58 +12,42 @@
         <OnSwipe
                 app:dragDirection="dragUp"
                 app:touchAnchorId="@id/recyclerview"
-                app:touchAnchorSide="top"/>
+                app:touchAnchorSide="top" />
 
         <KeyFrameSet>
+            <KeyAttribute
+                    app:framePosition="40"
+                    app:motionTarget="@id/drop_shadow_layout">
+
+                <CustomAttribute
+                        app:attributeName="backgroundColor"
+                        app:customColorValue="@color/color_background" />
+            </KeyAttribute>
+
+
+            <KeyPosition
+                    app:framePosition="60"
+                    app:motionTarget="@id/device_image"
+                    app:percentHeight="0.8" />
 
             <KeyAttribute
-                    app:motionTarget="@id/drop_shadow_layout"
+                    android:alpha="125"
+                    app:framePosition="60"
+                    app:motionTarget="@id/device_image" />
+
+            <KeyPosition
+                    app:framePosition="70"
+                    app:motionTarget="@id/device_image"
+                    app:percentHeight="1" />
+
+            <KeyAttribute
                     android:alpha="0"
-                    app:framePosition="60"
-            />
-
-            <KeyAttribute
-                    app:motionTarget="@id/drop_shadow_layout"
-                    android:alpha="50"
                     app:framePosition="70"
-            />
-
+                    app:motionTarget="@id/device_image" />
             <KeyAttribute
-                    app:motionTarget="@id/drop_shadow_layout"
-                    android:alpha="255"
-                    app:framePosition="90"
-            />
-
-
-            <KeyPosition
-                    app:motionTarget="@id/device_image"
-                    app:framePosition="60"
-                    app:percentHeight="0.8"
-            />
-
-            <KeyAttribute
-                    app:motionTarget="@id/device_image"
-                    app:framePosition="60"
-            >
-                <CustomAttribute
-                        app:attributeName="imageAlpha"
-                        app:customIntegerValue="125"/>
-
-            </KeyAttribute>
-
-            <KeyPosition
-                    app:motionTarget="@id/device_image"
-                    app:framePosition="70"
-                    app:percentHeight="1"/>
-
-            <KeyAttribute
-                    app:motionTarget="@id/device_image"
-                    app:framePosition="70">
-                <CustomAttribute
-                        app:attributeName="imageAlpha"
-                        app:customIntegerValue="0"/>
-
-            </KeyAttribute>
+                    android:alpha="0"
+                    app:framePosition="97"
+                    app:motionTarget="@+id/device_image" />
 
         </KeyFrameSet>
 
@@ -78,34 +61,35 @@
                 android:layout_height="40dp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
                 android:id="@id/device_image"
                 android:layout_width="@dimen/device_image_size"
                 android:layout_height="@dimen/device_image_size"
+                android:elevation="@dimen/antrics_elevation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/guideline2"
-                android:elevation="@dimen/antrics_elevation">
+                app:layout_constraintTop_toTopOf="@id/guideline2">
             <CustomAttribute
                     app:attributeName="imageAlpha"
-                    app:customIntegerValue="255"/>
+                    app:customIntegerValue="255" />
         </Constraint>
         <Constraint
                 android:id="@id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
                 android:layout_marginBottom="@dimen/default_padding"
+                android:alpha="255"
                 android:scaleX="1.0"
                 android:scaleY="1.0"
-                android:alpha="255"
-                app:layout_constraintTop_toBottomOf="@id/device_image"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginEnd="@dimen/default_padding"
-                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="@dimen/default_padding">
-        </Constraint>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/device_image"></Constraint>
         <Constraint
                 android:id="@+id/recyclerview"
                 android:layout_width="0dp"
@@ -114,18 +98,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"/>
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <Constraint android:id="@id/drop_shadow_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:elevation="0dp"
-                    android:alpha="0"
-                    android:clipToPadding="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/title">
+        <Constraint
+                android:id="@id/drop_shadow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:elevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                    app:attributeName="backgroundColor"
+                    app:customColorValue="@color/color_background" />
         </Constraint>
     </ConstraintSet>
 
@@ -134,35 +121,35 @@
                 android:id="@id/btn_menu"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginTop="0dp"
+                android:elevation="@dimen/antrics_elevation"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:elevation="@dimen/antrics_elevation"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
                 android:id="@id/device_image"
                 android:layout_height="?attr/actionBarSize"
+                android:elevation="@dimen/antrics_elevation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:elevation="@dimen/antrics_elevation"
                 app:layout_constraintTop_toTopOf="parent">
             <CustomAttribute
                     app:attributeName="imageAlpha"
-                    app:customIntegerValue="0"/>
+                    app:customIntegerValue="0" />
         </Constraint>
         <Constraint
                 android:id="@id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:elevation="@dimen/antrics_elevation"
                 android:scaleX="0.925"
                 android:scaleY="0.925"
-                android:elevation="@dimen/antrics_elevation"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_menu"
-                android:layout_marginTop="@dimen/default_padding"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
 
@@ -176,19 +163,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"/>
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <Constraint android:id="@id/drop_shadow_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:alpha="255"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:elevation="@dimen/antrics_elevation"
-                    android:clipToPadding="false"
-                    app:layout_constraintBottom_toBottomOf="@+id/title">
-
+        <Constraint
+                android:id="@id/drop_shadow_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:elevation="@dimen/antrics_elevation"
+                app:layout_constraintBottom_toBottomOf="@+id/title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                    app:attributeName="backgroundColor"
+                    app:customColorValue="?collapsibleFrameBackground" />
 
         </Constraint>
 
